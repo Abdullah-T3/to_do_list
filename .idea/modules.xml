@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/to_do_list_zagsystem.iml" filepath="$PROJECT_DIR$/to_do_list_zagsystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/to_do_list_zagsystem_android.iml" filepath="$PROJECT_DIR$/android/to_do_list_zagsystem_android.iml" />
+    </modules>
+  </component>
+</project>
