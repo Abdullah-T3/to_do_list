@@ -1,15 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:to_do_list_zagsystem/Responsive/UiComponanets/InfoWidget.dart';
+import 'package:to_do_list_zagsystem/View/Auth/Widgets/AuthenticationTextFieldWidget.dart';
 import 'package:to_do_list_zagsystem/helpers/extantions.dart';
-import 'package:to_do_list_zagsystem/theming/colors.dart';
 
+import '../../../Responsive/UiComponanets/InfoWidget.dart';
 import '../../../Responsive/models/DeviceInfo.dart';
 import '../../../routing/routs.dart';
-import '../Widgets/AuthenticationTextFieldWidget.dart';
+import '../../../theming/colors.dart';
+import '../../../theming/styles.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+class SingupView extends StatelessWidget {
+  const SingupView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +34,12 @@ class LoginView extends StatelessWidget {
                     children: [
                       SizedBox(height: deviceinfo.screenHeight * 0.1),
                       Text("on.time", style: TextStyle(fontSize: deviceinfo.screenWidth * 0.1, fontWeight: FontWeight.bold, color: Colors.white)),
-                      SizedBox(height: deviceinfo.screenHeight * 0.15),
+                      SizedBox(height: deviceinfo.screenHeight * 0.05),
                       AuthenticationTextFieldWidget(title: 'Email', isPassword: false),
+                      SizedBox(height: deviceinfo.screenHeight * 0.02),
+                      AuthenticationTextFieldWidget(title: 'Username', isPassword: false),
+                      SizedBox(height: deviceinfo.screenHeight * 0.02),
+                      AuthenticationTextFieldWidget(title: 'Phone', isPassword: false),
                       SizedBox(height: deviceinfo.screenHeight * 0.02),
                       AuthenticationTextFieldWidget(title: 'Password', isPassword: true),
                       Row(
@@ -52,20 +57,23 @@ class LoginView extends StatelessWidget {
                             context.pushNamed(Routes.homePage);
                           },
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05)),
-                          child: Text("Login", style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.05, fontWeight: FontWeight.bold)),
+                          child: Text("Sign Up", style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.05, fontWeight: FontWeight.bold)),
                         ),
                       ),
+                      SizedBox(height: deviceinfo.screenHeight * 0.01),
                       RichText(
                           text: TextSpan(children: [
                         TextSpan(
-                          text: "Don't have an account?",
-                          style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.04, fontWeight: FontWeight.bold),
+                          text: "Have an account? ",
+                          style: TextStyles.richTextBoldWhite.copyWith(fontSize: deviceinfo.screenWidth * 0.04),
                         ),
                         TextSpan(
-                          text: " Sign up",
-                          recognizer: TapGestureRecognizer()..onTap = () => context.pushNamed(Routes.signUpScreen),
-                          style: TextStyle(color: ColorsManager.buttonColor, fontSize: deviceinfo.screenWidth * 0.04, fontWeight: FontWeight.bold),
-                        ),
+                            text: "Sign in",
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                context.pushReplacementNamed(Routes.loginScreen);
+                              },
+                            style: TextStyles.richTextBoldButtonColor.copyWith(fontSize: deviceinfo.screenWidth * 0.04))
                       ]))
                     ],
                   ),

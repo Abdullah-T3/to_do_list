@@ -29,6 +29,8 @@ class _AuthenticationTextFieldWidgetState extends State<AuthenticationTextFieldW
               style: TextStyle(fontSize: deviceinfo.screenWidth * 0.04, fontWeight: FontWeight.bold, color: Colors.white),
             ),
             TextField(
+              style: TextStyle(color: Colors.white),
+              cursorColor: Colors.white,
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
@@ -36,6 +38,10 @@ class _AuthenticationTextFieldWidgetState extends State<AuthenticationTextFieldW
                   borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
                 ),
                 enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
+                ),
+                focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white),
                   borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
                 ),
