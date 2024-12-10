@@ -47,14 +47,14 @@ class SingupView extends StatelessWidget {
                           TextButton(onPressed: () {}, child: Text("Forgot Password?", style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.04, fontWeight: FontWeight.bold))),
                         ],
                       ),
-                      SizedBox(height: deviceinfo.screenHeight * 0.15),
+                      const Spacer(),
                       Container(
                         height: deviceinfo.screenHeight * 0.07,
                         width: deviceinfo.screenWidth * 0.8,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05), color: ColorsManager.buttonColor),
                         child: MaterialButton(
                           onPressed: () {
-                            context.pushNamed(Routes.homePage);
+                            context.pushReplacementNamed(Routes.homePage);
                           },
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05)),
                           child: Text("Sign Up", style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.05, fontWeight: FontWeight.bold)),
@@ -62,19 +62,23 @@ class SingupView extends StatelessWidget {
                       ),
                       SizedBox(height: deviceinfo.screenHeight * 0.01),
                       RichText(
-                          text: TextSpan(children: [
-                        TextSpan(
-                          text: "Have an account? ",
-                          style: TextStyles.richTextBoldWhite.copyWith(fontSize: deviceinfo.screenWidth * 0.04),
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Have an account? ",
+                              style: TextStyles.richTextBoldWhite.copyWith(fontSize: deviceinfo.screenWidth * 0.04),
+                            ),
+                            TextSpan(
+                                text: "Sign in",
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    context.pushReplacementNamed(Routes.loginScreen);
+                                  },
+                                style: TextStyles.richTextBoldButtonColor.copyWith(fontSize: deviceinfo.screenWidth * 0.04))
+                          ],
                         ),
-                        TextSpan(
-                            text: "Sign in",
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                context.pushReplacementNamed(Routes.loginScreen);
-                              },
-                            style: TextStyles.richTextBoldButtonColor.copyWith(fontSize: deviceinfo.screenWidth * 0.04))
-                      ]))
+                      ),
+                      SizedBox(height: deviceinfo.screenHeight * 0.08),
                     ],
                   ),
                 ),

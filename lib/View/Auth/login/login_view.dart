@@ -33,7 +33,7 @@ class LoginView extends StatelessWidget {
                     children: [
                       SizedBox(height: deviceinfo.screenHeight * 0.1),
                       Text("on.time", style: TextStyle(fontSize: deviceinfo.screenWidth * 0.1, fontWeight: FontWeight.bold, color: Colors.white)),
-                      SizedBox(height: deviceinfo.screenHeight * 0.15),
+                      SizedBox(height: deviceinfo.screenHeight * 0.14),
                       AuthenticationTextFieldWidget(title: 'Email', isPassword: false),
                       SizedBox(height: deviceinfo.screenHeight * 0.02),
                       AuthenticationTextFieldWidget(title: 'Password', isPassword: true),
@@ -42,7 +42,7 @@ class LoginView extends StatelessWidget {
                           TextButton(onPressed: () {}, child: Text("Forgot Password?", style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.04, fontWeight: FontWeight.bold))),
                         ],
                       ),
-                      SizedBox(height: deviceinfo.screenHeight * 0.15),
+                      const Spacer(),
                       Container(
                         height: deviceinfo.screenHeight * 0.07,
                         width: deviceinfo.screenWidth * 0.8,
@@ -56,17 +56,21 @@ class LoginView extends StatelessWidget {
                         ),
                       ),
                       RichText(
-                          text: TextSpan(children: [
-                        TextSpan(
-                          text: "Don't have an account?",
-                          style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.04, fontWeight: FontWeight.bold),
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Don't have an account?",
+                              style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.04, fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(
+                              text: " Sign up",
+                              recognizer: TapGestureRecognizer()..onTap = () => context.pushNamed(Routes.signUpScreen),
+                              style: TextStyle(color: ColorsManager.buttonColor, fontSize: deviceinfo.screenWidth * 0.04, fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
-                        TextSpan(
-                          text: " Sign up",
-                          recognizer: TapGestureRecognizer()..onTap = () => context.pushNamed(Routes.signUpScreen),
-                          style: TextStyle(color: ColorsManager.buttonColor, fontSize: deviceinfo.screenWidth * 0.04, fontWeight: FontWeight.bold),
-                        ),
-                      ]))
+                      ),
+                      SizedBox(height: deviceinfo.screenHeight * 0.08),
                     ],
                   ),
                 ),
