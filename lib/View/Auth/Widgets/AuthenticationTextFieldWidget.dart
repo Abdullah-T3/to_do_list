@@ -26,8 +26,9 @@ class _AuthenticationTextFieldWidgetState extends State<AuthenticationTextFieldW
           children: [
             Text(
               widget.title,
-              style: TextStyle(fontSize: deviceinfo.screenWidth * 0.04, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(fontSize: deviceinfo.screenWidth * 0.035, fontWeight: FontWeight.bold, color: Colors.white),
             ),
+            SizedBox(height: deviceinfo.screenHeight * 0.01,),
             TextField(
               style: TextStyle(color: Colors.white),
               cursorColor: Colors.white,
@@ -47,6 +48,7 @@ class _AuthenticationTextFieldWidgetState extends State<AuthenticationTextFieldW
                 ),
                 suffixIcon: widget.isPassword
                     ? IconButton(
+                      color: Colors.grey,
                         icon: Icon(passInvisible ? Icons.visibility : Icons.visibility_off),
                         onPressed: () {
                           setState(() {
