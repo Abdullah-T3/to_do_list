@@ -29,9 +29,9 @@ Future<void> main() async {
   print('------------------- Session -------------------');
   print(session);
   print('-------------------');
-  
   print('Email : ${user!.userMetadata!['email']}');
-  
+
+
 }
 
 

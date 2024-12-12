@@ -31,6 +31,7 @@ class SingupView extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.all(deviceinfo.screenWidth * 0.05),
                   child: Column(
+
                     children: [
                       SizedBox(height: deviceinfo.screenHeight * 0.1),
                       Text("on.time", style: TextStyle(fontSize: deviceinfo.screenWidth * 0.1, fontWeight: FontWeight.bold, color: Colors.white)),
