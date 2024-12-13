@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_list_zagsystem/MVVM/Views/Screens/Add_Task/Add_Task_Screen.dart';
 import 'package:to_do_list_zagsystem/routing/routs.dart';
 
 import '../MVVM/VIew_Models/Task_View_Models/task_cubit.dart';
@@ -12,6 +13,7 @@ class AppRouts {
     switch (settings.name) {
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (_) => const LoginView());
+
       case Routes.homePage:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -21,6 +23,10 @@ class AppRouts {
         );
       case Routes.signUpScreen:
         return MaterialPageRoute(builder: (_) => const SingupView());
+
+      case Routes.addTaskScreen:
+        return MaterialPageRoute(builder: (_) => const Add_Task_Screen());
+
       default:
         return null;
     }

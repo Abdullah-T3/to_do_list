@@ -6,9 +6,7 @@ sealed class TaskState {}
 final class TaskInitial extends TaskState {}
 
 // State while loading data
-final class TaskLoading extends TaskState {
-
-}
+final class TaskLoading extends TaskState {}
 
 // State when data is successfully loaded
 final class TaskLoaded extends TaskState {

@@ -6,6 +6,7 @@ import '../../Models/Tasks_Models/task_model.dart';
 part 'task_state.dart';
 
 class TaskCubit extends Cubit<TaskState> {
+
   TaskCubit() : super(TaskInitial());
 
   final _supabase = Supabase.instance.client;
@@ -17,6 +18,7 @@ class TaskCubit extends Cubit<TaskState> {
       print("inside try");
       final response = await _supabase.from('tasks').select();
       final tasks = (response as List<dynamic>).map((item) => TaskModel.fromJson(item)).toList();
+
       emit(TaskLoaded(tasks)); // Emit loaded state with data
       print('------------------- Response Result -------------------');
       print("${tasks[0]} task ");
@@ -24,5 +26,6 @@ class TaskCubit extends Cubit<TaskState> {
       print("inside catch");
       emit(TaskError('Exception while fetching tasks: $e'));
     }
+
   }
 }

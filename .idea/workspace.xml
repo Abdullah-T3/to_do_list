@@ -5,18 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2344b3c7-f9ce-40ef-aad0-c64a5e550175" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Add_Task/Add_Task_Screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/MVVM/Views/Widgets/Add_Task_Widgets/InkWellWidget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Model/task_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/View/Auth/Widgets/AuthenticationTextFieldWidget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/View/Auth/login/login_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/View/Auth/signUp/singUp_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/View/home/Widgets/task_widget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/View/home/home_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/VieweModel/taskCubit/task_cubit.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/VieweModel/taskCubit/task_state.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Task_View_Models/task_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Task_View_Models/task_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Task_View_Models/task_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Task_View_Models/task_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Home_Screen/home_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Home_Screen/home_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Widgets/Tasks_Widgets/task_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Widgets/Tasks_Widgets/task_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/View/task/add_task_view.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/routing/appRouting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/routing/appRouting.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/routing/routs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/routing/routs.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/theming/colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/theming/colors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/theming/styles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/theming/styles.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +41,13 @@
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -67,6 +77,7 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;dart.settings&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
