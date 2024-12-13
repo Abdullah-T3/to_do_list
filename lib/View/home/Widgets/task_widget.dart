@@ -10,7 +10,7 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: ColorsManager.secondaryColor,
+      color: ColorsManager.buttonColor,
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
         title: Text(task.taskContent ?? 'No content', style: const TextStyle(color: Colors.white)),

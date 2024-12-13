@@ -7,8 +7,9 @@ final class TaskInitial extends TaskState {}
 
 // State while loading data
 final class TaskLoading extends TaskState {
-final bool isLoading ;
-TaskLoading(this.isLoading);
+  bool isLoading = false;
+
+  TaskLoading(this.isLoading);
 }
 
 // State when data is successfully loaded

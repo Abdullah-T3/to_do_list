@@ -103,38 +103,19 @@ class _HomeViewState extends State<HomeView> {
                       Expanded(
                         child: BlocBuilder<TaskCubit, TaskState>(
                           builder: (context, state) {
-                            print(state);
-                            if (state is TaskLoading) {
-                              print("loading");
+                            if (state == TaskLoading(true)) {
                               return const Center(child: CircularProgressIndicator());
                             } else if (state is TaskLoaded) {
-                              if (state.tasks.isEmpty) {
-                                return const Center(
-                                  child: Text(
-                                    'No tasks available!',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                );
-                              }
                               return ListView.builder(
                                 itemCount: state.tasks.length,
-                                itemBuilder: (context, index) => TaskCard(task: state.tasks[index]),
+                                itemBuilder: (context, index) {
+                                  return TaskCard(task: state.tasks[index]);
+                                },
                               );
                             } else if (state is TaskError) {
-                              return Center(
-                                child: Text(
-                                  'Error: ${state.errorMessage}',
-                                  style: const TextStyle(color: Colors.red),
-                                ),
-                              );
-                            } else {
-                              return const Center(
-                                child: Text(
-                                  'Start by adding some tasks!',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              );
+                              return Center(child: Text(state.errorMessage));
                             }
+                            return const SizedBox();
                           },
                         ),
                       ),
@@ -146,7 +127,13 @@ class _HomeViewState extends State<HomeView> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {}, shape: const CircleBorder(), backgroundColor: ColorsManager.buttonColor, child: const Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.read<TaskCubit>().fetchTasks();
+          },
+          shape: const CircleBorder(),
+          backgroundColor: ColorsManager.buttonColor,
+          child: const Icon(Icons.refresh)),
     );
   }
 }
