@@ -138,7 +138,7 @@ class _HomeViewState extends State<HomeView> {
           },
           shape: const CircleBorder(),
           backgroundColor: ColorsManager.buttonColor,
-          child: const Icon(Icons.refresh)),
+          child: const Icon(Icons.add)),
     );
   }
 }

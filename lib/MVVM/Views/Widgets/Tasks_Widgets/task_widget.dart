@@ -6,7 +6,7 @@ import '../../../Models/Tasks_Models/task_model.dart';
 class TaskCard extends StatelessWidget {
   final TaskModel task;
 
-  const TaskCard({Key? key, required this.task}) : super(key: key);
+  const TaskCard({super.key, required this.task});
 
   @override
   Widget build(BuildContext context) {
