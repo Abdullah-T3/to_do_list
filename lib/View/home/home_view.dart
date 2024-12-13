@@ -103,9 +103,12 @@ class _HomeViewState extends State<HomeView> {
                       Expanded(
                         child: BlocBuilder<TaskCubit, TaskState>(
                           builder: (context, state) {
-                            if (state == TaskLoading(true)) {
+                            print("${state} lol");
+                            if (state is TaskLoading) {
+                              print("loading");
                               return const Center(child: CircularProgressIndicator());
                             } else if (state is TaskLoaded) {
+                              print("loaded");
                               return ListView.builder(
                                 itemCount: state.tasks.length,
                                 itemBuilder: (context, index) {
@@ -113,6 +116,7 @@ class _HomeViewState extends State<HomeView> {
                                 },
                               );
                             } else if (state is TaskError) {
+                              print("error");
                               return Center(child: Text(state.errorMessage));
                             }
                             return const SizedBox();

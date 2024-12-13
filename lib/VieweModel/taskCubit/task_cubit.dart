@@ -12,20 +12,16 @@ class TaskCubit extends Cubit<TaskState> {
 
   Future<void> fetchTasks() async {
     print("------------------- Fetching Tasks -------------------");
-    emit(TaskLoading(true)); // Emit loading state
-
+    emit(TaskLoading()); // Emit loading state
     try {
       print("inside try");
       final response = await _supabase.from('tasks').select();
-
       final tasks = (response as List<dynamic>).map((item) => TaskModel.fromJson(item)).toList();
       emit(TaskLoaded(tasks)); // Emit loaded state with data
-      emit(TaskLoading(false));
       print('------------------- Response Result -------------------');
       print("${tasks[0]} task ");
-        } catch (e) {
+    } catch (e) {
       print("inside catch");
-      emit(TaskLoading(false));
       emit(TaskError('Exception while fetching tasks: $e'));
     }
   }
