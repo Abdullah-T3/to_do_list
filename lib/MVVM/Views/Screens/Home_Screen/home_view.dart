@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list_zagsystem/Responsive/UiComponanets/InfoWidget.dart';
-import 'package:to_do_list_zagsystem/View/home/Widgets/task_widget.dart';
 import 'package:to_do_list_zagsystem/theming/colors.dart';
 
-import '../../Responsive/models/DeviceInfo.dart';
-import '../../VieweModel/taskCubit/task_cubit.dart';
+import '../../../../Responsive/models/DeviceInfo.dart';
+import '../../../VIew_Models/Task_View_Models/task_cubit.dart';
+import '../../Widgets/Tasks_Widgets/task_widget.dart';
+
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

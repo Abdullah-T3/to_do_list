@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2344b3c7-f9ce-40ef-aad0-c64a5e550175" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Model/task_model.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/View/Auth/Widgets/AuthenticationTextFieldWidget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/View/Auth/login/login_view.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/View/Auth/signUp/singUp_view.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/View/home/Widgets/task_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/View/home/home_view.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/VieweModel/taskCubit/task_cubit.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/VieweModel/taskCubit/task_state.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/routing/appRouting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/routing/appRouting.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list_zagsystem/Responsive/UiComponanets/InfoWidget.dart';
 
-import '../../../Responsive/models/DeviceInfo.dart';
+import '../../../../Responsive/models/DeviceInfo.dart';
 
 // ignore: must_be_immutable
 class AuthenticationTextFieldWidget extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../Model/task_model.dart';
+import '../../Models/Tasks_Models/task_model.dart';
 
 part 'task_state.dart';
 

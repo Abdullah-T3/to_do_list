@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_list_zagsystem/View/Auth/login/login_view.dart';
-import 'package:to_do_list_zagsystem/View/home/home_view.dart';
-import 'package:to_do_list_zagsystem/VieweModel/taskCubit/task_cubit.dart';
 import 'package:to_do_list_zagsystem/routing/routs.dart';
 
-import '../View/Auth/signUp/singUp_view.dart';
+import '../MVVM/VIew_Models/Task_View_Models/task_cubit.dart';
+import '../MVVM/Views/Screens/Auth/Login_Screen/login_view.dart';
+import '../MVVM/Views/Screens/Auth/SignUp_Screen/singUp_view.dart';
+import '../MVVM/Views/Screens/Home_Screen/home_view.dart';
 
 class AppRouts {
   Route? generateRoute(RouteSettings settings) {
