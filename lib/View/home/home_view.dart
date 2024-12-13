@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list_zagsystem/Responsive/UiComponanets/InfoWidget.dart';
 import 'package:to_do_list_zagsystem/View/home/Widgets/task_widget.dart';
 import 'package:to_do_list_zagsystem/theming/colors.dart';
 
 import '../../Responsive/models/DeviceInfo.dart';
+import '../../VieweModel/taskCubit/task_cubit.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<TaskCubit>().fetchTasks();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -89,10 +101,41 @@ class HomeView extends StatelessWidget {
                       ),
                       SizedBox(height: deviceinfo.screenHeight * 0.05),
                       Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: 10,
-                          itemBuilder: (context, index) => const TaskCard(),
+                        child: BlocBuilder<TaskCubit, TaskState>(
+                          builder: (context, state) {
+                            print(state);
+                            if (state is TaskLoading) {
+                              print("loading");
+                              return const Center(child: CircularProgressIndicator());
+                            } else if (state is TaskLoaded) {
+                              if (state.tasks.isEmpty) {
+                                return const Center(
+                                  child: Text(
+                                    'No tasks available!',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                );
+                              }
+                              return ListView.builder(
+                                itemCount: state.tasks.length,
+                                itemBuilder: (context, index) => TaskCard(task: state.tasks[index]),
+                              );
+                            } else if (state is TaskError) {
+                              return Center(
+                                child: Text(
+                                  'Error: ${state.errorMessage}',
+                                  style: const TextStyle(color: Colors.red),
+                                ),
+                              );
+                            } else {
+                              return const Center(
+                                child: Text(
+                                  'Start by adding some tasks!',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ],

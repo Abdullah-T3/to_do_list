@@ -30,8 +30,6 @@ Future<void> main() async {
   print(session);
   print('-------------------');
   print('Email : ${user!.userMetadata!['email']}');
-
-
 }
 
 

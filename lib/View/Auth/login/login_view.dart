@@ -4,7 +4,6 @@ import 'package:to_do_list_zagsystem/Responsive/UiComponanets/InfoWidget.dart';
 import 'package:to_do_list_zagsystem/helpers/extantions.dart';
 import 'package:to_do_list_zagsystem/theming/colors.dart';
 
-import '../../../Responsive/models/DeviceInfo.dart';
 import '../../../routing/routs.dart';
 import '../Widgets/AuthenticationTextFieldWidget.dart';
 
