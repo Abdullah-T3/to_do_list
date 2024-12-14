@@ -26,27 +26,40 @@ class EditTaskScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          BlocListener<TaskCubit, TaskState>(
+            listener: (context, state) {
+              if (state is TaskUpdated) {
+                context.pop();
+              }
+              if (state is TaskError) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              }
+            },
+            child: IconButton(
+              onPressed: () {
+                final updatedTask = TaskModel(
+                  id: task.id,
+                  title: titleController.text.isNotEmpty ? titleController.text : task.title,
+                  taskContent: contentController.text.isNotEmpty ? contentController.text : task.taskContent,
+                  startDate: task.startDate,
+                  endDate: task.endDate,
+                  repeat: repeatController.text.isNotEmpty ? repeatController.text : task.repeat,
+                  place: placeController.text.isNotEmpty ? placeController.text : task.place,
+                  isDone: task.isDone,
+                );
+
+                // Update the task before popping the screen
+                context.read<TaskCubit>().updateTask(updatedTask);
+              },
+              icon: const Icon(Icons.check, color: Colors.white),
+            ),
+          ),
           IconButton(
             onPressed: () {
-              final updatedTask = TaskModel(
-                id: task.id,
-                title: titleController.text.isNotEmpty ? titleController.text : task.title,
-                taskContent: contentController.text.isNotEmpty ? contentController.text : task.taskContent,
-                startDate: task.startDate,
-                endDate: task.endDate,
-                repeat: repeatController.text.isNotEmpty ? repeatController.text : task.repeat,
-                place: placeController.text.isNotEmpty ? placeController.text : task.place,
-                isDone: task.isDone,
-              );
-
-              // Update the task before popping the screen
-              context.read<TaskCubit>().updateTask(updatedTask);
-
-              // Navigate back after the update is successful
-              Navigator.pop(context);
+              context.read<TaskCubit>().deleteTask(task.id!); // Pass the task ID to deleteTask method
             },
-            icon: const Icon(Icons.check, color: Colors.white),
-          )
+            icon: const Icon(Icons.delete, color: Colors.white),
+          ),
         ],
         title: Text('Edit Task', style: TextStyles.appBarStyle),
         backgroundColor: ColorsManager.buttonColor,
@@ -59,95 +72,95 @@ class EditTaskScreen extends StatelessWidget {
               padding: EdgeInsetsDirectional.only(start: deviceinfo.screenWidth * 0.05, end: deviceinfo.screenWidth * 0.05, top: deviceinfo.screenHeight * 0.02, bottom: deviceinfo.screenHeight * 0.05),
               child: BlocBuilder<TaskCubit, TaskState>(
                 builder: (context, state) {
-                  return Column(
-                    spacing: deviceinfo.screenHeight * 0.01,
-                    children: [
-                      TextField(
-                        decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Task Title'),
-                        controller: task.title == null ? titleController : TextEditingController(text: task.title),
-                      ),
-                      TextField(
-                        decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Place'),
-                        controller: task.place == null ? placeController : TextEditingController(text: task.place),
-                      ),
-                      InkWellWidget(
-                        OptionName: 'Repeat',
-                        InitialData: 'One Time',
-                        OnTap: () async {
-                          await radioButtons(
-                            context: context,
-                            deviceinfo: deviceinfo,
-                            title: 'Repeat',
-                            ItemsList: [
-                              'One Time',
-                              'Daily',
-                              'Weekly',
-                              'Monthly'
-                            ],
-                          );
-                        },
-                      ),
-                      InkWellWidget(
-                        OptionName: 'Reminder',
-                        InitialData: 'Before 5 Minutes',
-                        OnTap: () async {
-                          await radioButtons(
-                            context: context,
-                            deviceinfo: deviceinfo,
-                            title: 'Reminder',
-                            ItemsList: [
-                              'Before 5 Minutes',
-                              'Before 10 Minutes',
-                              'Before 15 Minutes',
-                              'Before 20 Minutes'
-                            ],
-                          );
-                        },
-                      ),
-                      InkWellWidget(
-                        OptionName: 'Start Date',
-                        InitialData: task.startDate.toString().substring(0, 10) ?? "",
-                        OnTap: () async {
-                          final DateTime? picked = await DatePicker(context);
-                          if (picked != null) {
-                            print("${task.startDate} start date");
-                            task.startDate = picked.toString().substring(0, 10);
-                            final formattedDate = "${picked.year}-${picked.month}-${picked.day}";
-                            context.read<TaskCubit>().changeDate(formattedDate);
-                          }
-                          print(picked);
-                        },
-                      ),
-                      InkWellWidget(
-                        OptionName: 'Finish',
-                        InitialData: task.endDate.toString().substring(0, 10) ?? "",
-                        OnTap: () async {
-                          final DateTime? picked = await DatePicker(context);
-                          if (picked != null) {
-                            task.endDate = picked.toString().substring(0, 10);
-                            final formattedDate = "${picked.year}-${picked.month}-${picked.day}";
-                            context.read<TaskCubit>().changeDate(formattedDate);
-                          }
-                          print(picked);
-                        },
-                      ),
-                      Container(
-                          height: deviceinfo.screenHeight * 0.55,
-                          width: deviceinfo.screenWidth * 0.8,
-                          padding: EdgeInsetsDirectional.only(start: deviceinfo.screenWidth * 0.03, end: deviceinfo.screenWidth * 0.03),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
-                            color: ColorsManager.textFieldColor,
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
+                  return SingleChildScrollView(
+                    child: Column(
+                      spacing: deviceinfo.screenHeight * 0.01,
+                      children: [
+                        TextField(
+                          decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Task Title'),
+                          controller: task.title == null ? titleController : TextEditingController(text: task.title),
+                        ),
+                        TextField(
+                          decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Place'),
+                          controller: task.place == null ? placeController : TextEditingController(text: task.place),
+                        ),
+                        InkWellWidget(
+                          OptionName: 'Repeat',
+                          InitialData: 'One Time',
+                          OnTap: () async {
+                            await radioButtons(
+                              context: context,
+                              deviceinfo: deviceinfo,
+                              title: 'Repeat',
+                              ItemsList: [
+                                'One Time',
+                                'Daily',
+                                'Weekly',
+                                'Monthly'
+                              ],
+                            );
+                          },
+                        ),
+                        InkWellWidget(
+                          OptionName: 'Reminder',
+                          InitialData: 'Before 5 Minutes',
+                          OnTap: () async {
+                            await radioButtons(
+                              context: context,
+                              deviceinfo: deviceinfo,
+                              title: 'Reminder',
+                              ItemsList: [
+                                'Before 5 Minutes',
+                                'Before 10 Minutes',
+                                'Before 15 Minutes',
+                                'Before 20 Minutes'
+                              ],
+                            );
+                          },
+                        ),
+                        InkWellWidget(
+                          OptionName: 'Start Date',
+                          InitialData: task.startDate ?? "",
+                          OnTap: () async {
+                            final DateTime? picked = await DatePicker(context);
+                            if (picked != null) {
+                              print("${task.startDate} start date");
+                              task.startDate = picked.toString().substring(0, 10);
+                              final formattedDate = "${picked.year}-${picked.month}-${picked.day}";
+                              context.read<TaskCubit>().changeDate(formattedDate);
+                            }
+                            print(picked);
+                          },
+                        ),
+                        InkWellWidget(
+                          OptionName: 'Finish',
+                          InitialData: task.endDate ?? "",
+                          OnTap: () async {
+                            final DateTime? picked = await DatePicker(context);
+                            if (picked != null) {
+                              task.endDate = picked.toString().substring(0, 10);
+                              final formattedDate = "${picked.year}-${picked.month}-${picked.day}";
+                              context.read<TaskCubit>().changeDate(formattedDate);
+                            }
+                            print(picked);
+                          },
+                        ),
+                        Container(
+                            height: deviceinfo.screenHeight * 0.55,
+                            width: deviceinfo.screenWidth * 0.8,
+                            padding: EdgeInsetsDirectional.only(start: deviceinfo.screenWidth * 0.03, end: deviceinfo.screenWidth * 0.03),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
+                              color: ColorsManager.textFieldColor,
                             ),
-                            controller: task.taskContent == null ? contentController : TextEditingController(text: task.taskContent),
-                          )),
-
-
-                    ],
+                            child: TextField(
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                              controller: task.taskContent == null ? contentController : TextEditingController(text: task.taskContent),
+                            )),
+                      ],
+                    ),
                   );
                 },
               ),

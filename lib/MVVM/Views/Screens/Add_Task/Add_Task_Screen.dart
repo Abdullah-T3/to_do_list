@@ -68,6 +68,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                     place: placeController.text,
                     taskContent: notesController.text,
                   );
+                  print("Task added: $task");
                   context.read<TaskCubit>().addTask(task);
                 },
                 icon: const Icon(Icons.check),
@@ -100,6 +101,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                         maxLines: 1,
                         style: TextStyle(fontSize: deviceinfo.screenWidth * 0.03, fontWeight: FontWeight.bold),
                         keyboardType: TextInputType.text,
+                        controller: titleController,
                       ),
                     ),
                     InkWellWidget(
@@ -171,6 +173,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                         maxLines: 1,
                         style: TextStyle(fontSize: deviceinfo.screenWidth * 0.03, fontWeight: FontWeight.bold),
                         keyboardType: TextInputType.text,
+                        controller: placeController,
                       ),
                     ),
                     SizedBox(
@@ -182,6 +185,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                         maxLines: 1,
                         style: TextStyle(fontSize: deviceinfo.screenWidth * 0.03, fontWeight: FontWeight.bold),
                         keyboardType: TextInputType.text,
+                        controller: notesController,
                       ),
                     ),
                   ],

@@ -14,7 +14,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   final TextEditingController RewritePassController = TextEditingController();
   final TextEditingController DisplayNameController = TextEditingController();
-
+  
   @override
   Future<void> close() {
     emailController.dispose();
