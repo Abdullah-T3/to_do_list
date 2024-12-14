@@ -37,16 +37,16 @@ class TaskCubit extends Cubit<TaskState> {
 
       // Insert data into the Supabase database
       final response = await _supabase.from('tasks').insert({
-        "task_content": task.taskContent, // Task content
-        "is_done": task.isDone ?? false, // Boolean value
-        "user_id": userId, // User ID
-        "start_date": task.startDate, // Start date
-        "end_date": task.endDate, // End date
-        "reminder": task.reminder, // Reminder details
-        "repeat": task.repeat, // Repeat configuration
-        "title": task.title, // Task title
-        "place": task.place, // Task location
-      }).select(); // Updated: Use `select()` to fetch the inserted row
+        "task_content": task.taskContent, 
+        "is_done": task.isDone ?? false, 
+        "user_id": userId, 
+        "start_date": task.startDate, 
+        "end_date": task.endDate, 
+        "reminder": task.reminder,
+        "repeat": task.repeat,
+        "title": task.title, 
+        "place": task.place, 
+      }).select(); 
 
       if (response == null || response.isEmpty) {
         throw Exception("Task insert failed: Response is null or empty");
