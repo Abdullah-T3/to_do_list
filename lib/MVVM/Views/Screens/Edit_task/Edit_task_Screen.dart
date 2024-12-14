@@ -40,7 +40,7 @@ class EditTaskScreen extends StatelessWidget {
                     children: [
                       TextField(
                         decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Task Title'),
-                        controller: TextEditingController(text: task.taskContent),
+                        controller: TextEditingController(text: task.title),
                       ),
                       TextField(
                         decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Place'),
@@ -107,6 +107,10 @@ class EditTaskScreen extends StatelessWidget {
                           print(picked);
                         },
                       ),
+                      TextField(
+                        decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Notes'),
+                        controller: TextEditingController(text: task.taskContent),
+                      )
                     ],
                   );
                 },

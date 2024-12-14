@@ -22,7 +22,7 @@ class TaskCard extends StatelessWidget {
           color: ColorsManager.buttonColor,
           margin: const EdgeInsets.symmetric(vertical: 8),
           child: ListTile(
-            title: Text(task.taskContent ?? 'No content', style: const TextStyle(color: Colors.white)),
+            title: Text(task.title ?? 'No title', style: const TextStyle(color: Colors.white)),
             subtitle: Text(task.createdAt?.toString() ?? '', style: const TextStyle(color: Colors.white60, fontWeight: FontWeight.bold)),
             trailing: Icon(
               task.isDone == true ? Icons.check_circle : Icons.radio_button_unchecked,

@@ -14,7 +14,8 @@ class TaskCubit extends Cubit<TaskState> {
     print("------------------- Fetching Tasks -------------------");
     emit(TaskLoading());
     try {
-      final response = await _supabase.from('tasks').select();
+      var userId = Supabase.instance.client.auth.currentUser?.id;
+      final response = await _supabase.from('tasks').select().eq('user_id', '$userId');
       final tasks = (response as List<dynamic>).map((item) => TaskModel.fromJson(item)).toList();
       emit(TaskLoaded(tasks)); // Emit loaded state with data
     } catch (e) {
@@ -26,7 +27,7 @@ class TaskCubit extends Cubit<TaskState> {
     print("------------------- Adding Task -------------------");
     emit(TaskLoading());
     try {
-       await _supabase.from('tasks').insert({
+      await _supabase.from('tasks').insert({
         "task_content": task.taskContent,
         "is_done": task.isDone,
         "user_id": Supabase.instance.client.auth.currentUser?.id,
