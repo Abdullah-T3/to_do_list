@@ -25,7 +25,6 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Infowidget(builder: (context, deviceinfo) {
       return Scaffold(
         extendBodyBehindAppBar: true,
@@ -122,6 +121,9 @@ class _HomeViewState extends State<HomeView> {
                         } else if (state is TaskError) {
                           print("error");
                           return Center(child: Text(state.errorMessage));
+                        } else if (state is NoTaske) {
+                          print("no tasks");
+                          return Center(child: Text("No tasks yet"));
                         }
                         return const SizedBox();
                       },

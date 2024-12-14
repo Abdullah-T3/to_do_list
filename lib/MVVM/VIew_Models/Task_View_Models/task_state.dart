@@ -24,7 +24,7 @@ final class pickedDateTask extends TaskState {
   final String pickedDate;
   pickedDateTask(this.pickedDate);
 }
-
+final class NoTaske extends TaskState {}
 final class TaskUndone extends TaskState {}
 
 final class TaskDeleted extends TaskState {}

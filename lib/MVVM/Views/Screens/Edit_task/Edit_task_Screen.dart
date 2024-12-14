@@ -12,15 +12,34 @@ import '../../Widgets/Add_Task_Widgets/InkWellWidget.dart';
 
 class EditTaskScreen extends StatelessWidget {
   EditTaskScreen({super.key, required this.task});
-  final TaskModel task;
 
+  TextEditingController titleController = TextEditingController();
+  TextEditingController contentController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  TextEditingController repeatController = TextEditingController();
+  TextEditingController placeController = TextEditingController();
+  TextEditingController reminderController = TextEditingController();
+  final TaskModel task;
+  TaskModel? updatedTask;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              updatedTask = TaskModel(
+                id: task.id,
+                taskContent: contentController.text,
+                isDone: task.isDone,
+                title: titleController.text,
+                startDate: task.startDate,
+                endDate: task.endDate,
+                repeat: repeatController.text,
+                place: placeController.text,
+              );
+              context.read<TaskCubit>().updateTask(task);
+            },
             icon: const Icon(Icons.check, color: Colors.white),
           )
         ],
@@ -40,11 +59,11 @@ class EditTaskScreen extends StatelessWidget {
                     children: [
                       TextField(
                         decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Task Title'),
-                        controller: TextEditingController(text: task.title),
+                        controller: task.title == null ? titleController : TextEditingController(text: task.title),
                       ),
                       TextField(
                         decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Place'),
-                        controller: TextEditingController(text: task.place),
+                        controller: task.place == null ? placeController : TextEditingController(text: task.place),
                       ),
                       InkWellWidget(
                         OptionName: 'Repeat',
@@ -109,7 +128,7 @@ class EditTaskScreen extends StatelessWidget {
                       ),
                       TextField(
                         decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Notes'),
-                        controller: TextEditingController(text: task.taskContent),
+                        controller: task.taskContent == null ? contentController : TextEditingController(text: task.taskContent),
                       )
                     ],
                   );
