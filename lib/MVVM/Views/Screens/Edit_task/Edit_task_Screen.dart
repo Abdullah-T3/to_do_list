@@ -126,10 +126,21 @@ class EditTaskScreen extends StatelessWidget {
                           print(picked);
                         },
                       ),
-                      TextField(
-                        decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Notes'),
-                        controller: task.taskContent == null ? contentController : TextEditingController(text: task.taskContent),
-                      )
+                      
+
+                      Container(
+                          height: deviceinfo.screenHeight * 0.55,
+                          width: deviceinfo.screenWidth * 0.8,
+                          padding: EdgeInsetsDirectional.only(start: deviceinfo.screenWidth * 0.03, end: deviceinfo.screenWidth * 0.03),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
+                            color: ColorsManager.textFieldColor,
+                          ),
+                          child: TextField(
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                            controller: task.taskContent == null ? contentController : TextEditingController(text: task.taskContent),                          )),
                     ],
                   );
                 },

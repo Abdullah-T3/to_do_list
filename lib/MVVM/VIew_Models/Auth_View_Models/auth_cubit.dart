@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:to_do_list_zagsystem/MVVM/Models/Auth_Models/AuthModel.dart';
 
 part 'auth_state.dart';
 
@@ -36,6 +37,7 @@ class AuthCubit extends Cubit<AuthState> {
           password: passwordController.text,
           email: emailController.text,
       );
+
 
         emit(AuthSuccess());
 
@@ -72,6 +74,7 @@ class AuthCubit extends Cubit<AuthState> {
           'display_name': DisplayNameController.text
         }
     );
+
 
     emit(AuthSuccess());
   } catch (e) {
