@@ -14,6 +14,12 @@ class TaskModel {
   String? taskContent;
   bool? isDone;
   String? userId;
+  dynamic startDate;
+  dynamic endDate;
+  int? reminder;
+  String? repeat;
+  String? title;
+  String? place;
 
   TaskModel({
     this.id,
@@ -21,6 +27,12 @@ class TaskModel {
     this.taskContent,
     this.isDone,
     this.userId,
+    this.startDate,
+    this.endDate,
+    this.reminder,
+    this.repeat,
+    this.title,
+    this.place,
   });
 
   factory TaskModel.fromJson(Map<String, dynamic> json) => TaskModel(
@@ -29,6 +41,12 @@ class TaskModel {
         taskContent: json["task_content"],
         isDone: json["is_done"],
         userId: json["user_id"],
+        startDate: json["start_date"],
+        endDate: json["end_date"],
+        reminder: json["reminder"],
+        repeat: json["repeat"],
+        title: json["title"],
+        place: json["place"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,5 +55,11 @@ class TaskModel {
         "task_content": taskContent,
         "is_done": isDone,
         "user_id": userId,
+        "start_date": startDate,
+        "end_date": endDate,
+        "reminder": reminder,
+        "repeat": repeat,
+        "title": title,
+        "place": place,
       };
 }

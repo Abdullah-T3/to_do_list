@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_list_zagsystem/MVVM/VIew_Models/Auth_View_Models/auth_cubit.dart';
-import 'package:to_do_list_zagsystem/Responsive/UiComponanets/InfoWidget.dart';
-import 'package:to_do_list_zagsystem/helpers/extantions.dart';
-import 'package:to_do_list_zagsystem/theming/colors.dart';
+import '../../../../VIew_Models/Auth_View_Models/auth_cubit.dart';
+import '../../../../../Responsive/UiComponanets/InfoWidget.dart';
+import '../../../../../helpers/extantions.dart';
+import '../../../../../theming/colors.dart';
 
 import '../../../../../routing/routs.dart';
 import '../../../Widgets/Auth_Widgets/AuthenticationTextFieldWidget.dart';

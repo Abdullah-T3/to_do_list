@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_list_zagsystem/Responsive/UiComponanets/InfoWidget.dart';
-import 'package:to_do_list_zagsystem/helpers/extantions.dart';
-import 'package:to_do_list_zagsystem/theming/colors.dart';
+import '../../../../Responsive/UiComponanets/InfoWidget.dart';
+import '../../../../helpers/extantions.dart';
+import '../../../../theming/colors.dart';
 
 import '../../../../routing/routs.dart';
 import '../../../../theming/styles.dart';
 import '../../../VIew_Models/Task_View_Models/task_cubit.dart';
 import '../../Widgets/Tasks_Widgets/task_widget.dart';
-
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -24,6 +23,7 @@ class _HomeViewState extends State<HomeView> {
     context.read<TaskCubit>().fetchTasks();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Infowidget(builder: (context, deviceinfo) {
       return Scaffold(
@@ -36,10 +36,8 @@ class _HomeViewState extends State<HomeView> {
         body: SafeArea(
           top: false,
           child: Container(
-
             decoration: MainBackgroundAttributes.MainBoxDecoration,
             padding: MainBackgroundAttributes(deviceinfo).MainPadding,
-
             child: GestureDetector(
               onTap: () {
                 FocusManager.instance.primaryFocus?.unfocus();
@@ -102,18 +100,23 @@ class _HomeViewState extends State<HomeView> {
                   Expanded(
                     child: BlocBuilder<TaskCubit, TaskState>(
                       builder: (context, state) {
-                        print("${state} lol");
+                        print("$state lol");
                         if (state is TaskLoading) {
                           print("loading");
                           return const Center(child: CircularProgressIndicator());
                         } else if (state is TaskLoaded) {
                           print("loaded");
-                          return ListView.builder(
-                            padding: EdgeInsetsDirectional.only(top: deviceinfo.screenHeight * 0.01),
-                            itemCount: state.tasks.length,
-                            itemBuilder: (context, index) {
-                              return TaskCard(task: state.tasks[index]);
+                          return RefreshIndicator(
+                            onRefresh: () async {
+                              context.read<TaskCubit>().fetchTasks();
                             },
+                            child: ListView.builder(
+                              padding: EdgeInsetsDirectional.only(top: deviceinfo.screenHeight * 0.01),
+                              itemCount: state.tasks.length,
+                              itemBuilder: (context, index) {
+                                return TaskCard(task: state.tasks[index]);
+                              },
+                            ),
                           );
                         } else if (state is TaskError) {
                           print("error");
@@ -130,7 +133,6 @@ class _HomeViewState extends State<HomeView> {
         ),
         floatingActionButton: FloatingActionButton(
             onPressed: () {
-              // context.read<TaskCubit>().fetchTasks();
               context.pushNamed(Routes.addTaskScreen);
             },
             shape: const CircleBorder(),

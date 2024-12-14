@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_zagsystem/Responsive/models/DeviceInfo.dart';
-import 'package:to_do_list_zagsystem/theming/colors.dart';
+import '../Responsive/models/DeviceInfo.dart';
+import 'colors.dart';
 
 class TextStyles {
   static const title = TextStyle(

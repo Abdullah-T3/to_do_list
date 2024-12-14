@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_zagsystem/Responsive/UiComponanets/InfoWidget.dart';
+import '../../../../Responsive/UiComponanets/InfoWidget.dart';
 
 import '../../../../theming/colors.dart';
 import '../../../Models/Tasks_Models/task_model.dart';

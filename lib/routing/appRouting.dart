@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_list_zagsystem/MVVM/Views/Screens/Add_Task/Add_Task_Screen.dart';
-import 'package:to_do_list_zagsystem/routing/routs.dart';
+import '../MVVM/Views/Screens/Add_Task/Add_Task_Screen.dart';
+import 'routs.dart';
 
 import '../MVVM/VIew_Models/Auth_View_Models/auth_cubit.dart';
 import '../MVVM/VIew_Models/Task_View_Models/task_cubit.dart';
@@ -10,7 +10,6 @@ import '../MVVM/Views/Screens/Auth/SignUp_Screen/singUp_view.dart';
 import '../MVVM/Views/Screens/Home_Screen/home_view.dart';
 
 class AppRouts {
-
   late AuthCubit authCubit;
 
   AppRouts() {
@@ -21,28 +20,31 @@ class AppRouts {
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.loginScreen:
-        return MaterialPageRoute(builder: (_) =>
-            BlocProvider(
-              create: (context) => authCubit,
-              child: const LoginView(),
-            ));
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => authCubit,
+                  child: const LoginView(),
+                ));
       case Routes.homePage:
         return MaterialPageRoute(
-          builder: (_) =>
-              BlocProvider(
-                create: (context) => TaskCubit(),
-                child: const HomeView(),
-              ),
+          builder: (_) => BlocProvider(
+            create: (context) => TaskCubit(),
+            child: const HomeView(),
+          ),
         );
       case Routes.signUpScreen:
-        return MaterialPageRoute(builder: (_) =>
-            BlocProvider(
-              create: (context) => authCubit,
-              child: const SingupView(),
-            ));
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => authCubit,
+                  child: const SingupView(),
+                ));
 
       case Routes.addTaskScreen:
-        return MaterialPageRoute(builder: (_) => const Add_Task_Screen());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => TaskCubit(),
+                  child: Add_Task_Screen(),
+                ));
 
       default:
         return null;

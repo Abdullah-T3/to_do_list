@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_zagsystem/routing/appRouting.dart';
+import 'routing/appRouting.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -13,7 +13,6 @@ Future<void> main() async {
     anonKey: dotenv.env['API_KEY'].toString(),
   );
 
-
   //
   // final data = await supabase
   //     .from('tasks')
@@ -22,17 +21,14 @@ Future<void> main() async {
   //
   // print(data);
   // final response = await Supabase.instance.client.auth.admin.listUsers();
-      // .from('auth.users')
-      // .select('id, email, created_at');
+  // .from('auth.users')
+  // .select('id, email, created_at');
 //   print(response.length);
 // print(response);
   runApp(MyApp(
     appRouter: AppRouts(),
   ));
-
 }
-
-
 
 class MyApp extends StatelessWidget {
   final AppRouts appRouter;

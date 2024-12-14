@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:to_do_list_zagsystem/helpers/extantions.dart';
+import '../../../../../helpers/extantions.dart';
 
 import '../../../../../Responsive/UiComponanets/InfoWidget.dart';
 import '../../../../../Responsive/models/DeviceInfo.dart';

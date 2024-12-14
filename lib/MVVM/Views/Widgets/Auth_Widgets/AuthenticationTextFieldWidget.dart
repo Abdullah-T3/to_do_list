@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_zagsystem/Responsive/UiComponanets/InfoWidget.dart';
+import '../../../../Responsive/UiComponanets/InfoWidget.dart';
 
 import '../../../../Responsive/models/DeviceInfo.dart';
 
@@ -8,7 +8,7 @@ class AuthenticationTextFieldWidget extends StatefulWidget {
   String title;
   bool isPassword;
   TextEditingController? TxtController;
-  AuthenticationTextFieldWidget({super.key, this.isPassword = false, required this.title, this.TxtController = null});
+  AuthenticationTextFieldWidget({super.key, this.isPassword = false, required this.title, this.TxtController});
 
   @override
   State<AuthenticationTextFieldWidget> createState() => _AuthenticationTextFieldWidgetState();
@@ -31,20 +31,20 @@ class _AuthenticationTextFieldWidgetState extends State<AuthenticationTextFieldW
             SizedBox(height: deviceinfo.screenHeight * 0.01,),
             TextField(
               controller: widget.TxtController,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               cursorColor: Colors.white,
               decoration: InputDecoration(
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: const BorderSide(color: Colors.white),
                   borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: const BorderSide(color: Colors.white),
                   borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: const BorderSide(color: Colors.white),
                   borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
                 ),
                 suffixIcon: widget.isPassword

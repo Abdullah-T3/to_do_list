@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_zagsystem/Responsive/UiComponanets/InfoWidget.dart';
+import '../../../../Responsive/UiComponanets/InfoWidget.dart';
 
 class InkWellWidget extends StatelessWidget {
 
@@ -7,7 +7,7 @@ class InkWellWidget extends StatelessWidget {
   String InitialData;
   Function() OnTap;
 
-  InkWellWidget({required this.OptionName,required this.InitialData, required this.OnTap});
+  InkWellWidget({super.key, required this.OptionName,required this.InitialData, required this.OnTap});
 
   @override
   Widget build(BuildContext context) {

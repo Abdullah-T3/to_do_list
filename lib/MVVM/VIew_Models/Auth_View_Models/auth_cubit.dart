@@ -58,7 +58,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signup() async {
     emit(AuthLoading());
     try {
-      await Future.delayed(Duration(seconds: 2)); // Simulating network delay
+      await Future.delayed(const Duration(seconds: 2)); // Simulating network delay
       emit(AuthSuccess());
     } catch (e) {
       emit(AuthFailure('Something went wrong!'));
