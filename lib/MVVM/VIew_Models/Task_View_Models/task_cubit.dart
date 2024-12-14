@@ -26,8 +26,7 @@ class TaskCubit extends Cubit<TaskState> {
     print("------------------- Adding Task -------------------");
     emit(TaskLoading());
     try {
-      print("into try");
-      final response = await _supabase.from('tasks').insert({
+       await _supabase.from('tasks').insert({
         "task_content": task.taskContent,
         "is_done": task.isDone,
         "user_id": Supabase.instance.client.auth.currentUser?.id,
@@ -38,8 +37,6 @@ class TaskCubit extends Cubit<TaskState> {
         "title": task.title,
         "place": task.place
       });
-      print("TaskData : $task[0]");
-      print("Response: $response");
       emit(TaskUpdated());
       print("Task added successfully!");
     } catch (e) {

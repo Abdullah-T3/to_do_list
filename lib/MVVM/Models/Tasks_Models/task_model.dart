@@ -14,8 +14,8 @@ class TaskModel {
   String? taskContent;
   bool? isDone;
   String? userId;
-  dynamic startDate;
-  dynamic endDate;
+  String? startDate;
+  String? endDate;
   int? reminder;
   String? repeat;
   String? title;

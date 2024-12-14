@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../MVVM/Models/Tasks_Models/task_model.dart';
 import '../MVVM/Views/Screens/Add_Task/Add_Task_Screen.dart';
+import '../MVVM/Views/Screens/Edit_task/Edit_task_Screen.dart';
 import 'routs.dart';
 
 import '../MVVM/VIew_Models/Auth_View_Models/auth_cubit.dart';
@@ -41,10 +43,20 @@ class AppRouts {
 
       case Routes.addTaskScreen:
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (context) => TaskCubit(),
-                  child: Add_Task_Screen(),
-                ));
+          builder: (_) => BlocProvider(
+            create: (context) => TaskCubit(),
+            child: const Add_Task_Screen(),
+          ),
+        );
+      case Routes.editTaskScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => TaskCubit(),
+            child: EditTaskScreen(
+              task: settings.arguments as TaskModel,
+            ),
+          ),
+        );
 
       default:
         return null;

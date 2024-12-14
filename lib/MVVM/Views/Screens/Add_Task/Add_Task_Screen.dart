@@ -61,8 +61,8 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                   // Collect data from the form (title, start date, etc.)
                   final task = TaskModel(
                     title: titleController.text,
-                    startDate: startDate,
-                    endDate: endDate,
+                    startDate: startDate.toString().substring(0, 10),
+                    endDate: endDate.toString().substring(0, 10),
                     repeat: selectedRepeatOption,
                     reminder: selectedReminderOption,
                     place: placeController.text,
