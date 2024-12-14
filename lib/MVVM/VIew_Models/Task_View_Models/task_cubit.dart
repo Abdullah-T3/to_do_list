@@ -37,16 +37,16 @@ class TaskCubit extends Cubit<TaskState> {
 
       // Insert data into the Supabase database
       final response = await _supabase.from('tasks').insert({
-        "task_content": task.taskContent, 
-        "is_done": task.isDone ?? false, 
-        "user_id": userId, 
-        "start_date": task.startDate, 
-        "end_date": task.endDate, 
+        "task_content": task.taskContent,
+        "is_done": task.isDone ?? false,
+        "user_id": userId,
+        "start_date": task.startDate,
+        "end_date": task.endDate,
         "reminder": task.reminder,
         "repeat": task.repeat,
-        "title": task.title, 
-        "place": task.place, 
-      }).select(); 
+        "title": task.title,
+        "place": task.place,
+      }).select();
 
       if (response == null || response.isEmpty) {
         throw Exception("Task insert failed: Response is null or empty");
@@ -64,11 +64,13 @@ class TaskCubit extends Cubit<TaskState> {
     print("------------------- Deleting Task -------------------");
     emit(TaskLoading());
     try {
-      final response = await _supabase.from('tasks').delete().eq('id', taskId);
-      if (response != null) {
-        emit(TaskDeleted());
+      final response = await _supabase.from('tasks').delete().eq('id', taskId).select();
+
+      // Check if the response is empty or if no rows were deleted
+      if (response.isEmpty) {
+        emit(TaskError('No task found with the given ID.'));
       } else {
-        emit(TaskError('Failed to delete task.'));
+        emit(TaskDeleted());
       }
     } catch (e) {
       emit(TaskError('Exception while deleting task: $e'));
@@ -83,8 +85,6 @@ class TaskCubit extends Cubit<TaskState> {
         throw Exception("Task ID cannot be null");
       }
       print("Task ID: ${task.id}");
-
-      // Perform the update operation
       final response = await _supabase
           .from('tasks')
           .update({
@@ -98,16 +98,14 @@ class TaskCubit extends Cubit<TaskState> {
             "title": task.title,
             "place": task.place,
           })
-          .eq('id', task.id as Object)
-          .select(); // Use .select() to return affected rows
-
-      // Check if response is valid
+          .eq('id', task.id!)
+          .select();
       if (response == null || response.isEmpty) {
-        throw Exception("Task update failed: Response is null or empty");
+      } else {
+        print("Task updated successfully: ${response.toString()}");
+        await fetchTasks(); // Refresh the tasks list
+        emit(TaskUpdated());
       }
-
-      print("Task updated successfully: ${response.toString()}");
-      await fetchTasks(); // Refresh the tasks list
     } catch (e) {
       print("Error updating task: $e");
       emit(TaskError('Exception while updating task: $e'));

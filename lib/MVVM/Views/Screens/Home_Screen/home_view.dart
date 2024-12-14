@@ -91,9 +91,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       suffixIcon: IconButton(
                         icon: const Icon(Icons.search),
-                        onPressed: () {
-
-                        },
+                        onPressed: () {},
                       ),
                       hintStyle: const TextStyle(color: Colors.white),
                       hintText: "Search",
@@ -125,7 +123,12 @@ class _HomeViewState extends State<HomeView> {
                           return Center(child: Text(state.errorMessage));
                         } else if (state is NoTaske) {
                           print("no tasks");
-                          return Center(child: Text("No tasks yet"));
+                          return Center(
+                            child: Text(
+                              "No tasks yet",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          );
                         }
                         return const SizedBox();
                       },
