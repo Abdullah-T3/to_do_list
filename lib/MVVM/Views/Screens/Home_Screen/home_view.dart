@@ -25,6 +25,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+
     return Infowidget(builder: (context, deviceinfo) {
       return Scaffold(
         extendBodyBehindAppBar: true,

@@ -11,6 +11,9 @@ class AuthCubit extends Cubit<AuthState> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  final TextEditingController RewritePassController = TextEditingController();
+  final TextEditingController DisplayNameController = TextEditingController();
+
   @override
   Future<void> close() {
     emailController.dispose();
@@ -34,34 +37,59 @@ class AuthCubit extends Cubit<AuthState> {
           email: emailController.text,
       );
 
-      if (res.session != null) {
-
         emit(AuthSuccess());
 
-        print('Login Successful!');
-      } else {
-        emit(AuthFailure('Invalid credentials'));
-        print('Invalid credentials');
 
-      }
     } catch (e) {
-      emit(AuthFailure('Invalid credentials'));
-        print('Invalid credentials');
+       if(e is AuthException){
+         print(e.message);
+
+          emit(AuthFailure(e.message.toString()));
+
+       }else{
+         emit(AuthFailure('Something went wrong!'));
+       }
     }
    }else{
      emit(AuthFailure('Fill All Fields'));
-        print('Fill All Fields');
    }
   }
 
   // Fake signup method
   Future<void> signup() async {
+
+    emit(AuthFailure(''));
     emit(AuthLoading());
-    try {
-      await Future.delayed(const Duration(seconds: 2)); // Simulating network delay
-      emit(AuthSuccess());
-    } catch (e) {
+    if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty && DisplayNameController.text.isNotEmpty&& RewritePassController.text.isNotEmpty){
+  if(passwordController.text == RewritePassController.text){
+  try {
+    final supabase = Supabase.instance.client;
+
+    final res = await supabase.auth.signUp(
+        password: passwordController.text,
+        email: emailController.text,
+        data: {
+          'display_name': DisplayNameController.text
+        }
+    );
+
+    emit(AuthSuccess());
+  } catch (e) {
+    if (e is AuthException) {
+      print(e.message);
+
+      emit(AuthFailure(e.message.toString()));
+    } else {
+      print(e);
       emit(AuthFailure('Something went wrong!'));
+    }
+  }
+}else{
+    emit(AuthFailure('Passwords are not the same'));
+
+  }
+    }else{
+      emit(AuthFailure('Fill All Fields'));
     }
   }
 }

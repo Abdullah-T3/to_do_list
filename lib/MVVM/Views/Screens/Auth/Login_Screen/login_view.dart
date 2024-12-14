@@ -31,7 +31,7 @@ class LoginView extends StatelessWidget {
                   ], begin: Alignment.bottomCenter, end: Alignment.topCenter, transform: GradientRotation(3.14)),
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.only(start: deviceinfo.screenWidth * 0.05, end: deviceinfo.screenWidth * 0.05, top: deviceinfo.screenHeight * 0.05, bottom: deviceinfo.screenHeight * 0.07),
+                  padding: EdgeInsetsDirectional.only(start: deviceinfo.screenWidth * 0.05, end: deviceinfo.screenWidth * 0.05, top: deviceinfo.screenHeight * 0.2, bottom: deviceinfo.screenHeight * 0.07),
                   child: BlocConsumer<AuthCubit, AuthState>(
                       listener: (context, state) {
                     if (state is AuthSuccess) {
@@ -40,18 +40,15 @@ class LoginView extends StatelessWidget {
                   }, builder: (context, state) {
 
                     return Column(
+                      spacing: deviceinfo.screenHeight * 0.04,
                       children: [
-                        SizedBox(height: deviceinfo.screenHeight * 0.1),
+
                         Text("Task Manager", style: TextStyle(fontSize: deviceinfo.screenWidth * 0.08, fontWeight: FontWeight.bold, color: Colors.white)),
-                        SizedBox(height: deviceinfo.screenHeight * 0.14),
+
                         AuthenticationTextFieldWidget(title: 'Email', TxtController: context.read<AuthCubit>().emailController, isPassword: false),
-                        SizedBox(height: deviceinfo.screenHeight * 0.02),
+
                         AuthenticationTextFieldWidget(title: 'Password',TxtController: context.read<AuthCubit>().passwordController, isPassword: true),
-                        Row(
-                          children: [
-                            TextButton(onPressed: () {}, child: Text("Forgot Password?", style: TextStyle(color: ColorsManager.buttonColor, fontSize: deviceinfo.screenWidth * 0.037, fontWeight: FontWeight.bold))),
-                          ],
-                        ),
+
                         if(state is AuthFailure)
                          Text(state.error, style: TextStyle(color: Colors.red, fontSize: deviceinfo.screenWidth * 0.035, fontWeight: FontWeight.bold)),
 
@@ -79,7 +76,6 @@ class LoginView extends StatelessWidget {
                           ),
                         ),
 
-                        SizedBox(height: deviceinfo.screenHeight * 0.02),
 
                         RichText(
                           text: TextSpan(
@@ -96,7 +92,6 @@ class LoginView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: deviceinfo.screenHeight * 0.08),
                       ],
                     );
                   }),

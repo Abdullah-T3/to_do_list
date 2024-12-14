@@ -12,19 +12,13 @@ import '../MVVM/Views/Screens/Auth/SignUp_Screen/singUp_view.dart';
 import '../MVVM/Views/Screens/Home_Screen/home_view.dart';
 
 class AppRouts {
-  late AuthCubit authCubit;
-
-  AppRouts() {
-    print('Auth Initialized ');
-    authCubit = AuthCubit();
-  }
 
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.loginScreen:
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
-                  create: (context) => authCubit,
+                  create: (context) => AuthCubit(),
                   child: const LoginView(),
                 ));
       case Routes.homePage:
@@ -37,7 +31,7 @@ class AppRouts {
       case Routes.signUpScreen:
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
-                  create: (context) => authCubit,
+                  create: (context) => AuthCubit(),
                   child: const SingupView(),
                 ));
 

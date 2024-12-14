@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2344b3c7-f9ce-40ef-aad0-c64a5e550175" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/MVVM/Models/Auth_Models/AuthModel.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Auth_View_Models/auth_cubit.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Auth_View_Models/auth_state.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Auth_View_Models/auth_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Auth_View_Models/auth_cubit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Auth/Login_Screen/login_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Auth/Login_Screen/login_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Widgets/Auth_Widgets/AuthenticationTextFieldWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Widgets/Auth_Widgets/AuthenticationTextFieldWidget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Auth/SignUp_Screen/singUp_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Auth/SignUp_Screen/singUp_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Home_Screen/home_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Home_Screen/home_view.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/routing/appRouting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/routing/appRouting.dart" afterDir="false" />
     </list>
