@@ -5,21 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2344b3c7-f9ce-40ef-aad0-c64a5e550175" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Add_Task/Add_Task_Screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/MVVM/Views/Widgets/Add_Task_Widgets/InkWellWidget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/MVVM/Models/Auth_Models/AuthModel.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Auth_View_Models/auth_cubit.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Auth_View_Models/auth_state.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Task_View_Models/task_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Task_View_Models/task_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Task_View_Models/task_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Task_View_Models/task_state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Home_Screen/home_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Home_Screen/home_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Widgets/Tasks_Widgets/task_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Widgets/Tasks_Widgets/task_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/View/task/add_task_view.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Auth/Login_Screen/login_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Auth/Login_Screen/login_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Widgets/Auth_Widgets/AuthenticationTextFieldWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Widgets/Auth_Widgets/AuthenticationTextFieldWidget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/routing/appRouting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/routing/appRouting.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/routing/routs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/routing/routs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/theming/colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/theming/colors.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/theming/styles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/theming/styles.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

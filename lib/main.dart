@@ -13,23 +13,23 @@ Future<void> main() async {
     anonKey: dotenv.env['API_KEY'].toString(),
   );
 
+
+  //
+  // final data = await supabase
+  //     .from('tasks')
+  //     .select('*')
+  //     .eq('id', '5');
+  //
+  // print(data);
+  // final response = await Supabase.instance.client.auth.admin.listUsers();
+      // .from('auth.users')
+      // .select('id, email, created_at');
+//   print(response.length);
+// print(response);
   runApp(MyApp(
     appRouter: AppRouts(),
   ));
 
-  final supabase = Supabase.instance.client;
-
-  final AuthResponse res =await supabase.auth.signInWithPassword(password: 'aaaaaqaasda',email: 'ducnta.work@gmail.com');
-  print('------------------- Response Result -------------------');
-  print(res);
-  print('------------------- User -------------------');
-  final Session? session = res.session;
-  final User? user = res.user;
-  print(user);
-  print('------------------- Session -------------------');
-  print(session);
-  print('-------------------');
-  print('Email : ${user!.userMetadata!['email']}');
 }
 
 

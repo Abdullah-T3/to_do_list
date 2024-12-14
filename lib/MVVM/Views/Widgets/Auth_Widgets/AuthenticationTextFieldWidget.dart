@@ -7,8 +7,8 @@ import '../../../../Responsive/models/DeviceInfo.dart';
 class AuthenticationTextFieldWidget extends StatefulWidget {
   String title;
   bool isPassword;
-
-  AuthenticationTextFieldWidget({super.key, this.isPassword = false, required this.title});
+  TextEditingController? TxtController;
+  AuthenticationTextFieldWidget({super.key, this.isPassword = false, required this.title, this.TxtController = null});
 
   @override
   State<AuthenticationTextFieldWidget> createState() => _AuthenticationTextFieldWidgetState();
@@ -30,6 +30,7 @@ class _AuthenticationTextFieldWidgetState extends State<AuthenticationTextFieldW
             ),
             SizedBox(height: deviceinfo.screenHeight * 0.01,),
             TextField(
+              controller: widget.TxtController,
               style: TextStyle(color: Colors.white),
               cursorColor: Colors.white,
               decoration: InputDecoration(
