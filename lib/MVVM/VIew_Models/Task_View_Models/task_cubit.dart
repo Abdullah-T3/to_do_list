@@ -19,7 +19,7 @@ class TaskCubit extends Cubit<TaskState> {
       if (response == []) {
         emit(NoTaske()); // Emit loaded state with empty data
       }
-      ;
+
       final tasks = (response as List<dynamic>).map((item) => TaskModel.fromJson(item)).toList();
       emit(TaskLoaded(tasks)); // Emit loaded state with data
     } catch (e) {

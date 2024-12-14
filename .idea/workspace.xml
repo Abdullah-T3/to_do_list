@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="2344b3c7-f9ce-40ef-aad0-c64a5e550175" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Auth_View_Models/auth_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Auth_View_Models/auth_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Task_View_Models/task_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Task_View_Models/task_cubit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Edit_task/Edit_task_Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Edit_task/Edit_task_Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Home_Screen/home_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Home_Screen/home_view.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

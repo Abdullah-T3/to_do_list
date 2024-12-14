@@ -91,7 +91,9 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       suffixIcon: IconButton(
                         icon: const Icon(Icons.search),
-                        onPressed: () {},
+                        onPressed: () {
+
+                        },
                       ),
                       hintStyle: const TextStyle(color: Colors.white),
                       hintText: "Search",
