@@ -28,17 +28,22 @@ class EditTaskScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              updatedTask = TaskModel(
+              final updatedTask = TaskModel(
                 id: task.id,
-                taskContent: contentController.text,
-                isDone: task.isDone,
-                title: titleController.text,
+                title: titleController.text.isNotEmpty ? titleController.text : task.title,
+                taskContent: contentController.text.isNotEmpty ? contentController.text : task.taskContent,
                 startDate: task.startDate,
                 endDate: task.endDate,
-                repeat: repeatController.text,
-                place: placeController.text,
+                repeat: repeatController.text.isNotEmpty ? repeatController.text : task.repeat,
+                place: placeController.text.isNotEmpty ? placeController.text : task.place,
+                isDone: task.isDone,
               );
-              context.read<TaskCubit>().updateTask(task);
+
+              // Update the task before popping the screen
+              context.read<TaskCubit>().updateTask(updatedTask);
+
+              // Navigate back after the update is successful
+              Navigator.pop(context);
             },
             icon: const Icon(Icons.check, color: Colors.white),
           )
@@ -67,9 +72,9 @@ class EditTaskScreen extends StatelessWidget {
                       ),
                       InkWellWidget(
                         OptionName: 'Repeat',
-                        InitialData: 'One Time',
+                        InitialData: task.repeat ?? 'One Time',
                         OnTap: () async {
-                          await radioButtons(
+                          final selectedRepeat = await radioButtons(
                             context: context,
                             deviceinfo: deviceinfo,
                             title: 'Repeat',
@@ -80,13 +85,16 @@ class EditTaskScreen extends StatelessWidget {
                               'Monthly'
                             ],
                           );
+                          if (selectedRepeat != null) {
+                            repeatController.text = selectedRepeat;
+                          }
                         },
                       ),
                       InkWellWidget(
                         OptionName: 'Reminder',
-                        InitialData: 'Before 5 Minutes',
+                        InitialData: task.reminder.toString() ?? 'Before 5 Minutes',
                         OnTap: () async {
-                          await radioButtons(
+                          final selectedReminder = await radioButtons(
                             context: context,
                             deviceinfo: deviceinfo,
                             title: 'Reminder',
@@ -97,6 +105,9 @@ class EditTaskScreen extends StatelessWidget {
                               'Before 20 Minutes'
                             ],
                           );
+                          if (selectedReminder != null) {
+                            reminderController.text = selectedReminder;
+                          }
                         },
                       ),
                       InkWellWidget(
@@ -175,48 +186,47 @@ Future<DateTime?> DatePicker(BuildContext context) {
   );
 }
 
-radioButtons({required BuildContext context, required Deviceinfo deviceinfo, required List<String> ItemsList, required String title}) async {
-  return await showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(title, style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.05)),
-          backgroundColor: Colors.grey.shade900,
-          scrollable: false,
-          content: SizedBox(
-            height: deviceinfo.screenHeight * 0.33,
-            width: deviceinfo.screenWidth * 0.5,
-            child: Column(
-              spacing: deviceinfo.screenHeight * 0.007,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: deviceinfo.screenWidth * 0.5,
-                  height: deviceinfo.screenHeight * 0.25,
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: ItemsList.length,
-                      itemBuilder: (context, index) {
-                        return RadioListTile<int>(
-                          title: Text(ItemsList[index], style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.03)),
-                          value: index,
-                          groupValue: 0,
-                          fillColor: WidgetStateProperty.all(ColorsManager.buttonColor),
-                          onChanged: (int? value) {
-                            print(value);
-                          },
-                        );
-                      }),
-                ),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: ColorsManager.buttonColor),
-                    onPressed: () {
-                      context.pop();
-                    },
-                    child: Text('Done', style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.03)))
-              ],
+Future<String?> radioButtons({
+  required BuildContext context,
+  required Deviceinfo deviceinfo,
+  required List<String> ItemsList,
+  required String title,
+}) async {
+  int? selectedValue;
+  return await showDialog<String>(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text(title, style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.05)),
+        backgroundColor: Colors.grey.shade900,
+        scrollable: false,
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: ItemsList.length,
+              itemBuilder: (context, index) {
+                return RadioListTile<int>(
+                  title: Text(ItemsList[index], style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.03)),
+                  value: index,
+                  groupValue: selectedValue,
+                  onChanged: (int? value) {
+                    selectedValue = value;
+                  },
+                );
+              },
             ),
-          ),
-        );
-      });
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: ColorsManager.buttonColor),
+              onPressed: () {
+                Navigator.pop(context, selectedValue != null ? ItemsList[selectedValue!] : null);
+              },
+              child: Text('Done', style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.03)),
+            ),
+          ],
+        ),
+      );
+    },
+  );
 }
