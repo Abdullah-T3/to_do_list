@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_list_zagsystem/MVVM/Views/Screens/splash/Splash_Screen.dart';
 import '../MVVM/Models/Tasks_Models/task_model.dart';
 import '../MVVM/Views/Screens/Add_Task/Add_Task_Screen.dart';
 import '../MVVM/Views/Screens/Edit_task/Edit_task_Screen.dart';
 import 'routs.dart';
-
 import '../MVVM/VIew_Models/Auth_View_Models/auth_cubit.dart';
 import '../MVVM/VIew_Models/Task_View_Models/task_cubit.dart';
 import '../MVVM/Views/Screens/Auth/Login_Screen/login_view.dart';
@@ -57,7 +57,8 @@ class AppRouts {
             ),
           ),
         );
-
+      case Routes.splashScreen:
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
       default:
         return null;
     }
