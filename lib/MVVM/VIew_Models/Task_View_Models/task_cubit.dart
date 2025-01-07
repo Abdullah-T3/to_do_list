@@ -113,4 +113,12 @@ class TaskCubit extends Cubit<TaskState> {
   void changeDate(String date) {
     emit(pickedDateTask(date));
   }
+  void changeRepeat(String repeat) {
+    emit(pickedRepeatTask(repeat));
+  }
+
+  void changeReminder(int reminder) {
+    emit(pickedReminderTask(reminder));
+  }
+
 }

@@ -20,11 +20,6 @@ final class pickedRepeatTask extends TaskState {
   final String pickedRepeat;
   pickedRepeatTask(this.pickedRepeat);
 }
-class pickedReminderTask extends TaskState {
-  final int reminder;
-  pickedReminderTask(this.reminder);
-}
-
 final class TaskDone extends TaskState {}
 
 final class pickedDateTask extends TaskState {

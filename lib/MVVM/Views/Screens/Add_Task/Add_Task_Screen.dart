@@ -6,12 +6,9 @@ import '../../../VIew_Models/Task_View_Models/task_cubit.dart';
 import '../../Widgets/Add_Task_Widgets/InkWellWidget.dart';
 import '../../../../Responsive/UiComponanets/InfoWidget.dart';
 import '../../../../helpers/extantions.dart';
-
 import '../../Widgets/Add_Task_Widgets/Radio_Button_Widget.dart';
 import '../Edit_task/Edit_task_Screen.dart';
 
-
-// ignore: must_be_immutable
 class Add_Task_Screen extends StatefulWidget {
   const Add_Task_Screen({super.key});
 
@@ -21,17 +18,13 @@ class Add_Task_Screen extends StatefulWidget {
 
 class _Add_Task_ScreenState extends State<Add_Task_Screen> {
   final titleController = TextEditingController();
-
   final placeController = TextEditingController();
-
   final notesController = TextEditingController();
 
   DateTime? startDate = DateTime.now();
-
   DateTime? endDate = DateTime.now();
 
   String selectedRepeatOption = 'One Time';
-
   int selectedReminderOption_index = 5;
 
   @override
@@ -46,20 +39,25 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
   Widget build(BuildContext context) {
     return Infowidget(builder: (context, deviceinfo) {
       return Scaffold(
-        extendBodyBehindAppBar: true, // Makes the body extend behind the AppBar
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: Colors.transparent, // Transparent background
-          elevation: 0, // Removes shadow
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           actions: [
             BlocListener<TaskCubit, TaskState>(
               listener: (context, state) {
                 if (state is TaskUpdated) {
                   context.pop();
                 }
+                if (state is pickedRepeatTask) {
+                  selectedRepeatOption = state.pickedRepeat;
+                }
+                if (state is pickedReminderTask) {
+                  selectedReminderOption_index = state.reminder;
+                }
               },
               child: IconButton(
                 onPressed: () {
-                  // Collect data from the form (title, start date, etc.)
                   final task = TaskModel(
                     title: titleController.text,
                     startDate: startDate.toString().substring(0, 10),
@@ -69,14 +67,13 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                     place: placeController.text,
                     taskContent: notesController.text,
                   );
-                  print("Task added: $task");
                   context.read<TaskCubit>().addTask(task);
                 },
                 icon: const Icon(Icons.check),
               ),
             ),
           ],
-          iconTheme: IconThemeData(color: Colors.grey, size: deviceinfo.screenWidth * 0.07), // For back button or menu icon
+          iconTheme: IconThemeData(color: Colors.grey, size: deviceinfo.screenWidth * 0.07),
         ),
         body: SafeArea(
           top: false,
@@ -89,7 +86,6 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
             child: BlocBuilder<TaskCubit, TaskState>(
               builder: (context, state) {
                 return Column(
-                  spacing: deviceinfo.screenHeight * 0.025,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Schedule', style: TextStyle(fontSize: deviceinfo.screenWidth * 0.045, fontWeight: FontWeight.w400, color: Colors.white)),
@@ -97,11 +93,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                       width: deviceinfo.screenWidth * 0.9,
                       height: deviceinfo.screenHeight * 0.05,
                       child: TextField(
-                        textAlign: TextAlign.start,
                         decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Title'),
-                        maxLines: 1,
-                        style: TextStyle(fontSize: deviceinfo.screenWidth * 0.03, fontWeight: FontWeight.bold),
-                        keyboardType: TextInputType.text,
                         controller: titleController,
                       ),
                     ),
@@ -112,10 +104,8 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                         final DateTime? picked = await DatePicker(context);
                         if (picked != null) {
                           startDate = picked;
-                          final formattedDate = "${picked.year}-${picked.month}-${picked.day}";
-                          context.read<TaskCubit>().changeDate(formattedDate);
+                          context.read<TaskCubit>().changeDate("${picked.year}-${picked.month}-${picked.day}");
                         }
-                        print(picked);
                       },
                     ),
                     InkWellWidget(
@@ -125,10 +115,8 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                         final DateTime? picked = await DatePicker(context);
                         if (picked != null) {
                           endDate = picked;
-                          final formattedDate = "${picked.year}-${picked.month}-${picked.day}";
-                          context.read<TaskCubit>().changeDate(formattedDate);
+                          context.read<TaskCubit>().changeDate("${picked.year}-${picked.month}-${picked.day}");
                         }
-                        print(picked);
                       },
                     ),
                     InkWellWidget(
@@ -144,11 +132,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                               deviceinfo: deviceinfo,
                               initialIndex: ['One Time', 'Daily', 'Weekly', 'Monthly'].indexOf(selectedRepeatOption),
                               onSelected: (int index) {
-                                setState(() {
-                                  selectedRepeatOption = ['One Time', 'Daily', 'Weekly', 'Monthly'][index];
-                                  print(selectedRepeatOption);
-
-                                });
+                                context.read<TaskCubit>().changeRepeat(['One Time', 'Daily', 'Weekly', 'Monthly'][index]);
                               },
                             );
                           },
@@ -173,39 +157,12 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                               deviceinfo: deviceinfo,
                               initialIndex: [5, 10, 15, 20].indexOf(selectedReminderOption_index),
                               onSelected: (int index) {
-                                setState(() {
-                                  selectedReminderOption_index = [5, 10, 15, 20][index];
-                                  print(selectedReminderOption_index);
-                                });
+                                context.read<TaskCubit>().changeReminder([5, 10, 15, 20][index]);
                               },
                             );
                           },
                         );
                       },
-                    ),
-                    SizedBox(
-                      width: deviceinfo.screenWidth * 0.9,
-                      height: deviceinfo.screenHeight * 0.05,
-                      child: TextField(
-                        textAlign: TextAlign.start,
-                        decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Place'),
-                        maxLines: 1,
-                        style: TextStyle(fontSize: deviceinfo.screenWidth * 0.03, fontWeight: FontWeight.bold),
-                        keyboardType: TextInputType.text,
-                        controller: placeController,
-                      ),
-                    ),
-                    SizedBox(
-                      width: deviceinfo.screenWidth * 0.9,
-                      height: deviceinfo.screenHeight * 0.05,
-                      child: TextField(
-                        textAlign: TextAlign.start,
-                        decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Notes'),
-                        maxLines: 1,
-                        style: TextStyle(fontSize: deviceinfo.screenWidth * 0.03, fontWeight: FontWeight.bold),
-                        keyboardType: TextInputType.text,
-                        controller: notesController,
-                      ),
                     ),
                   ],
                 );
@@ -217,7 +174,3 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
     });
   }
 }
-
-
-
-
