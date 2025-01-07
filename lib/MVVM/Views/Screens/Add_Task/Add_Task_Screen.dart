@@ -76,7 +76,6 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
               ),
             ),
           ],
-
           iconTheme: IconThemeData(color: Colors.grey, size: deviceinfo.screenWidth * 0.07), // For back button or menu icon
         ),
         body: SafeArea(
@@ -85,7 +84,8 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
             width: deviceinfo.screenWidth,
             height: deviceinfo.screenHeight,
             decoration: MainBackgroundAttributes.MainBoxDecoration,
-            padding: EdgeInsetsDirectional.only(top: deviceinfo.screenHeight * 0.12, start: deviceinfo.screenWidth * 0.05, end: deviceinfo.screenWidth * 0.05),
+            padding: EdgeInsetsDirectional.only(
+                top: deviceinfo.screenHeight * 0.12, start: deviceinfo.screenWidth * 0.05, end: deviceinfo.screenWidth * 0.05),
             child: BlocBuilder<TaskCubit, TaskState>(
               builder: (context, state) {
                 return Column(

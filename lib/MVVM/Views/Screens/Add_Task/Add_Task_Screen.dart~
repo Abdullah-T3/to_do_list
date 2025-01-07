@@ -9,8 +9,6 @@ import '../../../../Responsive/models/DeviceInfo.dart';
 import '../../../../helpers/extantions.dart';
 
 import '../../../../theming/colors.dart';
-import '../../Widgets/Add_Task_Widgets/Radio_Button_Widget.dart';
-import '../Edit_task/Edit_task_Screen.dart';
 
 
 // ignore: must_be_immutable
@@ -34,7 +32,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
 
   String selectedRepeatOption = 'One Time';
 
-  int selectedReminderOption_index = 5;
+  int selectedReminderOption = 5;
 
   @override
   void dispose() {
@@ -67,7 +65,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                     startDate: startDate.toString().substring(0, 10),
                     endDate: endDate.toString().substring(0, 10),
                     repeat: selectedRepeatOption,
-                    reminder: selectedReminderOption_index,
+                    reminder: selectedReminderOption,
                     place: placeController.text,
                     taskContent: notesController.text,
                   );
@@ -78,7 +76,6 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
               ),
             ),
           ],
-
           iconTheme: IconThemeData(color: Colors.grey, size: deviceinfo.screenWidth * 0.07), // For back button or menu icon
         ),
         body: SafeArea(
@@ -135,53 +132,35 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                     ),
                     InkWellWidget(
                       OptionName: 'Repeat',
-                      InitialData: selectedRepeatOption,
+                      InitialData: 'One Time',
                       OnTap: () async {
-                        await showDialog(
+                        await radioButtons(
                           context: context,
-                          builder: (context) {
-                            return RadioButtonWidget(
-                              title: 'Repeat',
-                              itemsList: const ['One Time', 'Daily', 'Weekly', 'Monthly'],
-                              deviceinfo: deviceinfo,
-                              initialIndex: ['One Time', 'Daily', 'Weekly', 'Monthly'].indexOf(selectedRepeatOption),
-                              onSelected: (int index) {
-                                setState(() {
-                                  selectedRepeatOption = ['One Time', 'Daily', 'Weekly', 'Monthly'][index];
-                                  print(selectedRepeatOption);
-
-                                });
-                              },
-                            );
-                          },
+                          deviceinfo: deviceinfo,
+                          title: 'Repeat',
+                          ItemsList: [
+                            'One Time',
+                            'Daily',
+                            'Weekly',
+                            'Monthly'
+                          ],
                         );
                       },
                     ),
                     InkWellWidget(
                       OptionName: 'Reminder',
-                      InitialData: 'Before $selectedReminderOption_index Minutes',
+                      InitialData: 'Before 5 Minutes',
                       OnTap: () async {
-                        await showDialog(
+                        await radioButtons(
                           context: context,
-                          builder: (context) {
-                            return RadioButtonWidget(
-                              title: 'Reminder',
-                              itemsList: const [
-                                'Before 5 Minutes',
-                                'Before 10 Minutes',
-                                'Before 15 Minutes',
-                                'Before 20 Minutes'
-                              ],
-                              deviceinfo: deviceinfo,
-                              initialIndex: [5, 10, 15, 20].indexOf(selectedReminderOption_index),
-                              onSelected: (int index) {
-                                setState(() {
-                                  selectedReminderOption_index = [5, 10, 15, 20][index];
-                                  print(selectedReminderOption_index);
-                                });
-                              },
-                            );
-                          },
+                          deviceinfo: deviceinfo,
+                          title: 'Reminder',
+                          ItemsList: [
+                            'Before 5 Minutes',
+                            'Before 10 Minutes',
+                            'Before 15 Minutes',
+                            'Before 20 Minutes'
+                          ],
                         );
                       },
                     ),
@@ -220,6 +199,70 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
   }
 }
 
+Future<DateTime?> DatePicker(BuildContext context) {
+  return showDatePicker(
+    context: context,
+    builder: (context, child) {
+      return Theme(
+        data: Theme.of(context).copyWith(
+          colorScheme: ColorScheme.dark(
+            primary: ColorsManager.buttonColor, // header background color
+            onSurface: Colors.white, // body text color
 
+            surfaceContainerHigh: Colors.grey.shade900,
+          ),
+        ),
+        child: child!,
+      );
+    },
+    initialDate: DateTime.now(),
+    firstDate: DateTime.now().subtract(const Duration(days: 365)),
+    lastDate: DateTime.now().add(const Duration(days: 365 * 2)),
+  );
+}
 
-
+radioButtons({required BuildContext context, required Deviceinfo deviceinfo, required List<String> ItemsList, required String title}) async {
+  return await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(title, style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.05)),
+          backgroundColor: Colors.grey.shade900,
+          scrollable: false,
+          content: SizedBox(
+            height: deviceinfo.screenHeight * 0.33,
+            width: deviceinfo.screenWidth * 0.5,
+            child: Column(
+              spacing: deviceinfo.screenHeight * 0.007,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: deviceinfo.screenWidth * 0.5,
+                  height: deviceinfo.screenHeight * 0.25,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: ItemsList.length,
+                      itemBuilder: (context, index) {
+                        return RadioListTile<int>(
+                          title: Text(ItemsList[index], style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.03)),
+                          value: index,
+                          groupValue: 0,
+                          fillColor: WidgetStateProperty.all(ColorsManager.buttonColor),
+                          onChanged: (int? value) {
+                            print(value);
+                          },
+                        );
+                      }),
+                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: ColorsManager.buttonColor),
+                    onPressed: () {
+                      context.pop();
+                    },
+                    child: Text('Done', style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.03)))
+              ],
+            ),
+          ),
+        );
+      });
+}
