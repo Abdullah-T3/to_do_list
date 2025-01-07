@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       body: Infowidget(builder: (context, deviceinfo) {
         return Container(
           width: deviceinfo.screenWidth,
-          height: deviceinfo.screenHeight,
+          height: deviceinfo.screenWidth,
           decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
               ColorsManager.primaryColor,
