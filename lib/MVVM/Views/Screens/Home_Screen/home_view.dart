@@ -30,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent, // Transparent background
+          backgroundColor: Colors.transparent,
           elevation: 0,
         ),
         body: SafeArea(
@@ -123,7 +123,7 @@ class _HomeViewState extends State<HomeView> {
                           return Center(child: Text(state.errorMessage));
                         } else if (state is NoTaske) {
                           print("no tasks");
-                          return Center(
+                          return const Center(
                             child: Text(
                               "No tasks yet",
                               style: TextStyle(color: Colors.white),

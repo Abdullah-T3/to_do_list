@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2344b3c7-f9ce-40ef-aad0-c64a5e550175" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/MVVM/Views/Widgets/Add_Task_Widgets/Date_Picker_Widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/MVVM/Views/Widgets/Add_Task_Widgets/Radio_Button_Widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MVVM/Models/Tasks_Models/task_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Models/Tasks_Models/task_model.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Task_View_Models/task_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/VIew_Models/Task_View_Models/task_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Edit_task/Edit_task_Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Edit_task/Edit_task_Screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Add_Task/Add_Task_Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Add_Task/Add_Task_Screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Home_Screen/home_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MVVM/Views/Screens/Home_Screen/home_view.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +50,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
   <component name="ProjectId" id="2q1zsethrLzw61JdA8pvs2hGF6o" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" />
@@ -57,20 +66,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;dart.settings&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Flutter.main.dart.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.codeium.enabled": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "io.flutter.reload.alreadyRun": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/T3MIA/Documents/GitHub/to_do_list_zagsystem",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "dart.settings",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

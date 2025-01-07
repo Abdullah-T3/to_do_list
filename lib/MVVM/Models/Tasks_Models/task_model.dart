@@ -20,7 +20,6 @@ class TaskModel {
   String? repeat;
   String? title;
   String? place;
-
   TaskModel({
     this.id,
     this.createdAt,
@@ -48,7 +47,7 @@ class TaskModel {
         title: json["title"],
         place: json["place"],
       );
-
+  
   Map<String, dynamic> toJson() => {
         "id": id,
         "created_at": createdAt?.substring(0, 10),

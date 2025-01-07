@@ -35,7 +35,6 @@ class TaskCubit extends Cubit<TaskState> {
         throw Exception("User not logged in");
       }
 
-      // Insert data into the Supabase database
       final response = await _supabase.from('tasks').insert({
         "task_content": task.taskContent,
         "is_done": task.isDone ?? false,
@@ -66,7 +65,6 @@ class TaskCubit extends Cubit<TaskState> {
     try {
       final response = await _supabase.from('tasks').delete().eq('id', taskId).select();
 
-      // Check if the response is empty or if no rows were deleted
       if (response.isEmpty) {
         emit(TaskError('No task found with the given ID.'));
       } else {
@@ -103,7 +101,7 @@ class TaskCubit extends Cubit<TaskState> {
       if (response == null || response.isEmpty) {
       } else {
         print("Task updated successfully: ${response.toString()}");
-        await fetchTasks(); // Refresh the tasks list
+        await fetchTasks();
         emit(TaskUpdated());
       }
     } catch (e) {
