@@ -54,13 +54,11 @@ class EditTaskScreen extends StatelessWidget {
                   title: titleController.text.isNotEmpty ? titleController.text : task.title,
                   taskContent: contentController.text.isNotEmpty ? contentController.text : task.taskContent,
                   startDate: dateController.text.isNotEmpty ? dateController.text : task.startDate,
-                  endDate: task.endDate, // Adjust if necessary
+                  endDate: task.endDate, 
                   repeat: repeatController.text.isNotEmpty ? repeatController.text : task.repeat,
                   place: placeController.text.isNotEmpty ? placeController.text : task.place,
                   isDone: task.isDone,
                 );
-
-                // Update the task before popping the screen
                 context.read<TaskCubit>().updateTask(updatedTask);
               },
               icon: const Icon(Icons.check, color: Colors.white),
@@ -180,7 +178,6 @@ class EditTaskScreen extends StatelessWidget {
     );
   }
 }
-
 Future<DateTime?> DatePicker(BuildContext context) {
   return showDatePicker(
     context: context,
