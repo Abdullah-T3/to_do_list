@@ -4,7 +4,6 @@ import 'package:to_do_list_zagsystem/MVVM/Views/Screens/splash/Splash_Screen.dar
 import '../MVVM/Models/Tasks_Models/task_model.dart';
 import '../MVVM/Views/Screens/Add_Task/Add_Task_Screen.dart';
 import '../MVVM/Views/Screens/Edit_task/Edit_task_Screen.dart';
-import '../test_notifcation.dart';
 import 'routs.dart';
 import '../MVVM/VIew_Models/Auth_View_Models/auth_cubit.dart';
 import '../MVVM/VIew_Models/Task_View_Models/task_cubit.dart';
@@ -55,7 +54,7 @@ class AppRouts {
       case Routes.splashScreen:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
         case Routes.testScreen:
-        return MaterialPageRoute(builder: (_) => const TestNotificationScreen());
+        return MaterialPageRoute(builder: (_) => const Add_Task_Screen());
       default:
         return null;
     }

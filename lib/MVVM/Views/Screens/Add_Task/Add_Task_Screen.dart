@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
 import '../../../../theming/styles.dart';
 import '../../../Models/Tasks_Models/task_model.dart';
 import '../../../VIew_Models/Task_View_Models/task_cubit.dart';
@@ -8,10 +10,10 @@ import '../../../../Responsive/UiComponanets/InfoWidget.dart';
 import '../../../../helpers/extantions.dart';
 import '../../Widgets/Add_Task_Widgets/Radio_Button_Widget.dart';
 import '../Edit_task/Edit_task_Screen.dart';
+import '../../../../helpers/notification_helper.dart'; // Import NotificationHelper
 
 class Add_Task_Screen extends StatefulWidget {
   const Add_Task_Screen({super.key});
-
   @override
   State<Add_Task_Screen> createState() => _Add_Task_ScreenState();
 }
@@ -20,13 +22,10 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
   final titleController = TextEditingController();
   final placeController = TextEditingController();
   final notesController = TextEditingController();
-
   DateTime? startDate = DateTime.now();
   DateTime? endDate = DateTime.now();
-
   String selectedRepeatOption = 'One Time';
   int selectedReminderOption_index = 5;
-
   @override
   void dispose() {
     titleController.dispose();
@@ -35,6 +34,22 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
     super.dispose();
   }
 
+  Future<void> _scheduleTaskNotification(TaskModel task) async {
+    final DateTime reminderTime =
+    tz.TZDateTime.from(startDate!, tz.local).subtract(Duration(minutes: selectedReminderOption_index));
+    final RepeatInterval? repeatInterval = selectedRepeatOption == 'Daily'
+        ? RepeatInterval.daily
+        : selectedRepeatOption == 'Weekly'
+        ? RepeatInterval.weekly
+        : null;
+    await NotificationHelper.scheduleNotification(
+      id: DateTime.now().millisecondsSinceEpoch ~/ 1000, // Unique ID
+      title: 'Task Reminder: ${task.title}',
+      body: 'Reminder for your task: ${task.title}',
+      scheduledTime: reminderTime,
+      repeatInterval: repeatInterval,
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Infowidget(builder: (context, deviceinfo) {
@@ -57,7 +72,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                 }
               },
               child: IconButton(
-                onPressed: () {
+                onPressed: () async {
                   final task = TaskModel(
                     title: titleController.text,
                     startDate: startDate.toString().substring(0, 10),
@@ -67,7 +82,10 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                     place: placeController.text,
                     taskContent: notesController.text,
                   );
+
                   context.read<TaskCubit>().addTask(task);
+
+                  await _scheduleTaskNotification(task);
                 },
                 icon: const Icon(Icons.check),
               ),
@@ -82,18 +100,25 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
             height: deviceinfo.screenHeight,
             decoration: MainBackgroundAttributes.MainBoxDecoration,
             padding: EdgeInsetsDirectional.only(
-                top: deviceinfo.screenHeight * 0.12, start: deviceinfo.screenWidth * 0.05, end: deviceinfo.screenWidth * 0.05),
+                top: deviceinfo.screenHeight * 0.12,
+                start: deviceinfo.screenWidth * 0.05,
+                end: deviceinfo.screenWidth * 0.05),
             child: BlocBuilder<TaskCubit, TaskState>(
               builder: (context, state) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Schedule', style: TextStyle(fontSize: deviceinfo.screenWidth * 0.045, fontWeight: FontWeight.w400, color: Colors.white)),
+                    Text('Schedule',
+                        style: TextStyle(
+                            fontSize: deviceinfo.screenWidth * 0.045,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white)),
                     SizedBox(
                       width: deviceinfo.screenWidth * 0.9,
                       height: deviceinfo.screenHeight * 0.05,
                       child: TextField(
-                        decoration: TextFieldStyles.inputDecoration(deviceinfo: deviceinfo, hintText: 'Title'),
+                        decoration: TextFieldStyles.inputDecoration(
+                            deviceinfo: deviceinfo, hintText: 'Title'),
                         controller: titleController,
                       ),
                     ),
@@ -104,7 +129,8 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                         final DateTime? picked = await DatePicker(context);
                         if (picked != null) {
                           startDate = picked;
-                          context.read<TaskCubit>().changeDate("${picked.year}-${picked.month}-${picked.day}");
+                          context.read<TaskCubit>().changeDate(
+                              "${picked.year}-${picked.month}-${picked.day}");
                         }
                       },
                     ),
@@ -115,7 +141,8 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                         final DateTime? picked = await DatePicker(context);
                         if (picked != null) {
                           endDate = picked;
-                          context.read<TaskCubit>().changeDate("${picked.year}-${picked.month}-${picked.day}");
+                          context.read<TaskCubit>().changeDate(
+                              "${picked.year}-${picked.month}-${picked.day}");
                         }
                       },
                     ),
@@ -128,11 +155,19 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                           builder: (context) {
                             return RadioButtonWidget(
                               title: 'Repeat',
-                              itemsList: const ['One Time', 'Daily', 'Weekly', 'Monthly'],
+                              itemsList: const [
+                                'One Time',
+                                'Daily',
+                                'Weekly',
+                                'Monthly'
+                              ],
                               deviceinfo: deviceinfo,
-                              initialIndex: ['One Time', 'Daily', 'Weekly', 'Monthly'].indexOf(selectedRepeatOption),
+                              initialIndex: ['One Time', 'Daily', 'Weekly', 'Monthly']
+                                  .indexOf(selectedRepeatOption),
                               onSelected: (int index) {
-                                context.read<TaskCubit>().changeRepeat(['One Time', 'Daily', 'Weekly', 'Monthly'][index]);
+                                context.read<TaskCubit>().changeRepeat(
+                                    ['One Time', 'Daily', 'Weekly', 'Monthly']
+                                    [index]);
                               },
                             );
                           },
@@ -155,9 +190,11 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                                 'Before 20 Minutes'
                               ],
                               deviceinfo: deviceinfo,
-                              initialIndex: [5, 10, 15, 20].indexOf(selectedReminderOption_index),
+                              initialIndex: [5, 10, 15, 20]
+                                  .indexOf(selectedReminderOption_index),
                               onSelected: (int index) {
-                                context.read<TaskCubit>().changeReminder([5, 10, 15, 20][index]);
+                                context.read<TaskCubit>().changeReminder(
+                                    [5, 10, 15, 20][index]);
                               },
                             );
                           },

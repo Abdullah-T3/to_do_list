@@ -51,8 +51,10 @@ class TaskCubit extends Cubit<TaskState> {
         throw Exception("Task insert failed: Response is null or empty");
       }
 
+      print("Task added successfully: ${response.toString()}");
       emit(TaskUpdated());
     } catch (e) {
+      print("Error adding task: $e");
       emit(TaskError('Exception while adding task: $e'));
     }
   }
@@ -80,6 +82,7 @@ class TaskCubit extends Cubit<TaskState> {
       if (task.id == null) {
         throw Exception("Task ID cannot be null");
       }
+      print("Task ID: ${task.id}");
       final response = await _supabase
           .from('tasks')
           .update({
@@ -97,10 +100,12 @@ class TaskCubit extends Cubit<TaskState> {
           .select();
       if (response == null || response.isEmpty) {
       } else {
+        print("Task updated successfully: ${response.toString()}");
         await fetchTasks();
         emit(TaskUpdated());
       }
     } catch (e) {
+      print("Error updating task: $e");
       emit(TaskError('Exception while updating task: $e'));
     }
   }

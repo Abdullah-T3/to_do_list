@@ -33,6 +33,7 @@ class TaskModel {
     this.title,
     this.place,
   });
+
   factory TaskModel.fromJson(Map<String, dynamic> json) => TaskModel(
         id: json["id"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]).toString().substring(0, 10),

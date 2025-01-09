@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../../../Responsive/models/DeviceInfo.dart';
 import '../../../../theming/colors.dart';
-
-
 class RadioButtonWidget extends StatefulWidget {
   final String title;
   final List<String> itemsList;
   final Deviceinfo deviceinfo;
   final int initialIndex;
   final ValueChanged<int> onSelected;
-
   const RadioButtonWidget({
     super.key,
     required this.title,
@@ -18,20 +15,16 @@ class RadioButtonWidget extends StatefulWidget {
     required this.onSelected,
     this.initialIndex = 0,
   });
-
   @override
   State<RadioButtonWidget> createState() => _RadioButtonWidgetState();
 }
-
 class _RadioButtonWidgetState extends State<RadioButtonWidget> {
   int selectedValue = 0;
-
   @override
   void initState() {
     super.initState();
     selectedValue = widget.initialIndex;
   }
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

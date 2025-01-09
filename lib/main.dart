@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'routing/appRouting.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'routing/appRouting.dart';
 import 'routing/routs.dart';
 
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await dotenv.load();
 
   await Supabase.initialize(
@@ -13,6 +18,14 @@ Future<void> main() async {
     anonKey: dotenv.env['API_KEY'].toString(),
   );
 
+  tz.initializeTimeZones();
+
+  const AndroidInitializationSettings initializationSettingsAndroid =
+  AndroidInitializationSettings('@mipmap/ic_launcher');
+  final InitializationSettings initializationSettings =
+  InitializationSettings(android: initializationSettingsAndroid);
+
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
   runApp(MyApp(
     appRouter: AppRouts(),
@@ -21,14 +34,14 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final AppRouts appRouter;
+
   const MyApp({super.key, required this.appRouter});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.splashScreen,
+      initialRoute: Routes.testScreen,
       onGenerateRoute: appRouter.generateRoute,
     );
   }

@@ -22,7 +22,6 @@ class AuthCubit extends Cubit<AuthState> {
     return super.close();
   }
 
-  // Fake login method
   Future<void> login() async {
     
     emit(AuthFailure(''));
@@ -44,7 +43,6 @@ class AuthCubit extends Cubit<AuthState> {
 
     } catch (e) {
        if(e is AuthException){
-         print(e.message);
 
           emit(AuthFailure(e.message.toString()));
 
@@ -79,11 +77,8 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthSuccess());
   } catch (e) {
     if (e is AuthException) {
-      print(e.message);
-
       emit(AuthFailure(e.message.toString()));
     } else {
-      print(e);
       emit(AuthFailure('Something went wrong!'));
     }
   }

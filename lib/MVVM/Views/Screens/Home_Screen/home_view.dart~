@@ -48,10 +48,7 @@ class _HomeViewState extends State<HomeView> {
                     children: [
                       const Text(
                         "on.time",
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                       const Spacer(),
                       IconButton(
@@ -82,18 +79,15 @@ class _HomeViewState extends State<HomeView> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(
-                            deviceinfo.screenWidth * 0.05),
+                        borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(
-                            deviceinfo.screenWidth * 0.05),
+                        borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(
-                            deviceinfo.screenWidth * 0.05),
+                        borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
                       ),
                       suffixIcon: IconButton(
                         icon: const Icon(Icons.search),
@@ -109,8 +103,7 @@ class _HomeViewState extends State<HomeView> {
                         print("$state lol");
                         if (state is TaskLoading) {
                           print("loading");
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator());
                         } else if (state is TaskLoaded) {
                           print("loaded");
                           return RefreshIndicator(
@@ -118,8 +111,7 @@ class _HomeViewState extends State<HomeView> {
                               context.read<TaskCubit>().fetchTasks();
                             },
                             child: ListView.builder(
-                              padding: EdgeInsetsDirectional.only(
-                                  top: deviceinfo.screenHeight * 0.01),
+                              padding: EdgeInsetsDirectional.only(top: deviceinfo.screenHeight * 0.01),
                               itemCount: state.tasks.length,
                               itemBuilder: (context, index) {
                                 return TaskCard(task: state.tasks[index]);
