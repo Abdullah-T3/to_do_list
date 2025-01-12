@@ -13,8 +13,8 @@ class NotificationHelper {
     InitializationSettings(android: androidInitializationSettings);
 
     await _notificationsPlugin.initialize(initializationSettings);
-    requestNotificationPermission();
-    requestExactAlarmPermission();
+    await requestNotificationPermission();
+    await requestExactAlarmPermission();
   }
   static Future<void> scheduleNotification({
     required int id,

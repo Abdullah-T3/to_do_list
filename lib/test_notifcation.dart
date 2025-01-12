@@ -22,7 +22,7 @@ class TestNotificationScreen extends StatelessWidget {
               title: 'Test Notification schedule',
               body: 'This is a schedule test notification!',
               scheduledTime: scheduledTime,
-            );}catch(e){ 
+            );}catch(e){
               print(e);
             }
           },

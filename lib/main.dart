@@ -29,7 +29,6 @@ Future<void> main() async {
   // await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
   await NotificationHelper.initialize();
- await NotificationHelper.requestNotificationPermission();
   runApp(MyApp(
     appRouter: AppRouts(),
   ));
