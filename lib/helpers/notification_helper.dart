@@ -5,6 +5,7 @@ class NotificationHelper {
   static final FlutterLocalNotificationsPlugin _notificationsPlugin =
   FlutterLocalNotificationsPlugin();
   static Future<void> initialize() async {
+
     const AndroidInitializationSettings androidInitializationSettings =
     AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -12,6 +13,8 @@ class NotificationHelper {
     InitializationSettings(android: androidInitializationSettings);
 
     await _notificationsPlugin.initialize(initializationSettings);
+    requestNotificationPermission();
+    requestExactAlarmPermission();
   }
   static Future<void> scheduleNotification({
     required int id,
@@ -83,7 +86,7 @@ class NotificationHelper {
     String? channelId,
     String? channelName,
     String? channelDescription,
-    Importance importance = Importance.high,
+    Importance importance = Importance.max,
     Priority priority = Priority.high,
   }) async {
     try {

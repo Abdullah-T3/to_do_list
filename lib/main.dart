@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:to_do_list_zagsystem/helpers/notification_helper.dart';
 import 'routing/appRouting.dart';
 import 'routing/routs.dart';
 
@@ -20,13 +21,15 @@ Future<void> main() async {
 
   tz.initializeTimeZones();
 
-  const AndroidInitializationSettings initializationSettingsAndroid =
-  AndroidInitializationSettings('@mipmap/ic_launcher');
-  final InitializationSettings initializationSettings =
-  InitializationSettings(android: initializationSettingsAndroid);
+  // const AndroidInitializationSettings initializationSettingsAndroid =
+  // AndroidInitializationSettings('@mipmap/ic_launcher');
+  // final InitializationSettings initializationSettings =
+  // InitializationSettings(android: initializationSettingsAndroid);
+  //
+  // await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
+  await NotificationHelper.initialize();
+ await NotificationHelper.requestNotificationPermission();
   runApp(MyApp(
     appRouter: AppRouts(),
   ));
