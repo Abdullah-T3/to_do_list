@@ -6,6 +6,7 @@ import '../../../../theming/colors.dart';
 
 import '../../../../routing/routs.dart';
 import '../../../../theming/styles.dart';
+import '../../../VIew_Models/Task_View_Models/home_tasks/home_tasks_cubit.dart';
 import '../../../VIew_Models/Task_View_Models/task_cubit.dart';
 import '../../Widgets/Tasks_Widgets/task_widget.dart';
 
@@ -20,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    context.read<TaskCubit>().fetchTasks();
+    context.read<HomeTasksCubit>().getTasks();
   }
 
   @override
@@ -104,18 +105,18 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                   Expanded(
-                    child: BlocBuilder<TaskCubit, TaskState>(
+                    child: BlocBuilder<HomeTasksCubit, HomeTasksState>(
                       builder: (context, state) {
                         print("$state lol");
-                        if (state is TaskLoading) {
+                        if (state is HomeTasksLoading) {
                           print("loading");
                           return const Center(
                               child: CircularProgressIndicator());
-                        } else if (state is TaskLoaded) {
+                        } else if (state is HomeTasksLoaded) {
                           print("loaded");
                           return RefreshIndicator(
                             onRefresh: () async {
-                              context.read<TaskCubit>().fetchTasks();
+                              context.read<HomeTasksCubit>().getTasks();
                             },
                             child: ListView.builder(
                               padding: EdgeInsetsDirectional.only(
@@ -126,9 +127,9 @@ class _HomeViewState extends State<HomeView> {
                               },
                             ),
                           );
-                        } else if (state is TaskError) {
+                        } else if (state is HomeTasksError) {
                           print("error");
-                          return Center(child: Text(state.errorMessage));
+                          return Center(child: Text(state.error));
                         } else if (state is NoTaske) {
                           print("no tasks");
                           return const Center(

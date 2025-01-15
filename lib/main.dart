@@ -21,13 +21,6 @@ Future<void> main() async {
 
   tz.initializeTimeZones();
 
-  // const AndroidInitializationSettings initializationSettingsAndroid =
-  // AndroidInitializationSettings('@mipmap/ic_launcher');
-  // final InitializationSettings initializationSettings =
-  // InitializationSettings(android: initializationSettingsAndroid);
-  //
-  // await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
   await NotificationHelper.initialize();
   runApp(MyApp(
     appRouter: AppRouts(),
@@ -43,7 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.testScreen,
+      initialRoute: Routes.splashScreen,
       onGenerateRoute: appRouter.generateRoute,
     );
   }

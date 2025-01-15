@@ -12,11 +12,10 @@ class TestNotificationScreen extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () async {
             final now = DateTime.now();
-            final scheduledTime = now.add(const Duration(seconds: 1));
+            final scheduledTime = now.add(const Duration(seconds: 5));
             print('Current time: $now');
             print('Scheduled time: $scheduledTime');
            try{
-            await NotificationHelper.showImmediateNotification(id: 1  , title: 'Test Notification' , body: 'This is a test notification!');
             await NotificationHelper.scheduleNotification(
               id: now.millisecondsSinceEpoch ~/ 1000,
               title: 'Test Notification schedule',

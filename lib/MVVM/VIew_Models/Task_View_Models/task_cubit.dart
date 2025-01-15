@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:to_do_list_zagsystem/helpers/notification_helper.dart';
 
 import '../../Models/Tasks_Models/task_model.dart';
 
@@ -19,9 +21,22 @@ class TaskCubit extends Cubit<TaskState> {
       if (response == []) {
         emit(NoTaske());
       }
+
       final tasks = (response as List<dynamic>).map((item) => TaskModel.fromJson(item)).toList();
+      for(var task in tasks){
+        if(task.reminder != null){
+          NotificationHelper.scheduleNotification(
+            id: task.id!,
+            title: task.title!,
+            body: task.taskContent!,
+            scheduledTime: DateTime.parse(task.startDate!),
+            repeatInterval: RepeatInterval.daily,
+          );
+        }
+      }
       emit(TaskLoaded(tasks));
     } catch (e) {
+      print(e);
       emit(TaskError('Exception while fetching tasks: $e'));
     }
   }
@@ -53,6 +68,7 @@ class TaskCubit extends Cubit<TaskState> {
 
       emit(TaskUpdated());
     } catch (e) {
+      print(e);
       emit(TaskError('Exception while adding task: $e'));
     }
   }

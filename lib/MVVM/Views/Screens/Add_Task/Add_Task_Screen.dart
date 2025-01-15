@@ -34,22 +34,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
     super.dispose();
   }
 
-  Future<void> _scheduleTaskNotification(TaskModel task) async {
-    final DateTime reminderTime =
-    tz.TZDateTime.from(startDate!, tz.local).subtract(Duration(minutes: selectedReminderOption_index));
-    final RepeatInterval? repeatInterval = selectedRepeatOption == 'Daily'
-        ? RepeatInterval.daily
-        : selectedRepeatOption == 'Weekly'
-        ? RepeatInterval.weekly
-        : null;
-    await NotificationHelper.scheduleNotification(
-      id: DateTime.now().millisecondsSinceEpoch ~/ 1000, // Unique ID
-      title: 'Task Reminder: ${task.title}',
-      body: 'Reminder for your task: ${task.title}',
-      scheduledTime: reminderTime,
-      repeatInterval: repeatInterval,
-    );
-  }
+
   @override
   Widget build(BuildContext context) {
     return Infowidget(builder: (context, deviceinfo) {
@@ -75,8 +60,8 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                 onPressed: () async {
                   final task = TaskModel(
                     title: titleController.text,
-                    startDate: startDate.toString().substring(0, 10),
-                    endDate: endDate.toString().substring(0, 10),
+                    startDate: startDate.toString(),
+                    endDate: endDate.toString(),
                     repeat: selectedRepeatOption,
                     reminder: selectedReminderOption_index,
                     place: placeController.text,
@@ -85,7 +70,13 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
 
                   context.read<TaskCubit>().addTask(task);
 
-                  await _scheduleTaskNotification(task);
+                  await NotificationHelper.scheduleNotification(
+                    id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+                    title: titleController.text,
+                    body: notesController.text,
+                    scheduledTime: startDate!,
+                    repeatInterval: RepeatInterval.daily,
+                  );
                 },
                 icon: const Icon(Icons.check),
               ),
