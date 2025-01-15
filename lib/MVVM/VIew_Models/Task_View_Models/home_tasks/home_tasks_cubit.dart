@@ -14,7 +14,7 @@ class HomeTasksCubit extends Cubit<HomeTasksState> {
     try {
 
       var userId = Supabase.instance.client.auth.currentUser?.id;
-      final response = await _supabase.from('tasks').select('title , created_at , is_done').eq('user_id', '$userId');
+      final response = await _supabase.from('tasks').select('title ,id, created_at , is_done').eq('user_id', '$userId');
       if (response == []) {
         emit(NoTasks());
       }

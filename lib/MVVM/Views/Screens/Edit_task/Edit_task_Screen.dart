@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list_zagsystem/MVVM/Models/Tasks_Models/task_model.dart';
+import 'package:to_do_list_zagsystem/MVVM/VIew_Models/Task_View_Models/edit_task/edit_task_cubit.dart';
 import 'package:to_do_list_zagsystem/Responsive/UiComponanets/InfoWidget.dart';
 import 'package:to_do_list_zagsystem/helpers/extantions.dart';
 
@@ -8,32 +9,45 @@ import '../../../../Responsive/models/DeviceInfo.dart';
 import '../../../../theming/colors.dart';
 import '../../../../theming/styles.dart';
 import '../../../VIew_Models/Task_View_Models/task_cubit.dart';
-import '../../Widgets/Add_Task_Widgets/InkWellWidget.dart';
 
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
 
-class EditTaskScreen extends StatelessWidget {
+class EditTaskScreen extends StatefulWidget {
   EditTaskScreen({super.key, required this.task}) {
-    // Initialize controllers with task data
-    titleController.text = task.title ?? '';
-    contentController.text = task.taskContent ?? '';
-    dateController.text = task.startDate ?? '';
-    repeatController.text = task.repeat ?? '';
-    placeController.text = task.place ?? '';
-    reminderController.text = task.reminder.toString();
+
   }
 
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController contentController = TextEditingController();
-  final TextEditingController dateController = TextEditingController();
-  final TextEditingController repeatController = TextEditingController();
-  final TextEditingController placeController = TextEditingController();
-  final TextEditingController reminderController = TextEditingController();
-
   final TaskModel task;
-  TaskModel? updatedTask;
 
+  @override
+  State<EditTaskScreen> createState() => _EditTaskScreenState();
+}
+
+class _EditTaskScreenState extends State<EditTaskScreen> {
+  late   TextEditingController titleController = TextEditingController();
+
+  late  TextEditingController contentController = TextEditingController();
+
+  late  TextEditingController dateController = TextEditingController();
+
+  late  TextEditingController repeatController = TextEditingController();
+
+  late TextEditingController placeController = TextEditingController();
+
+  late TextEditingController reminderController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    context.read<EditTaskCubit>().editTaskFetch(widget.task, widget.task.id!);
+    titleController = TextEditingController(text: widget.task.title);
+    contentController = TextEditingController( text: widget.task.taskContent);
+    dateController = TextEditingController(text: widget.task.startDate);
+    repeatController = TextEditingController(text: widget.task.repeat);
+    placeController = TextEditingController(text: widget.task.place);
+    reminderController = TextEditingController(text: widget.task.reminder.toString());
+  }
+  TaskModel? updatedTask;
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +72,14 @@ class EditTaskScreen extends StatelessWidget {
             child: IconButton(
               onPressed: () {
                 final updatedTask = TaskModel(
-                  id: task.id,
-                  title: titleController.text.isNotEmpty ? titleController.text : task.title,
-                  taskContent: contentController.text.isNotEmpty ? contentController.text : task.taskContent,
-                  startDate: dateController.text.isNotEmpty ? dateController.text : task.startDate,
-                  endDate: task.endDate, 
-                  repeat: repeatController.text.isNotEmpty ? repeatController.text : task.repeat,
-                  place: placeController.text.isNotEmpty ? placeController.text : task.place,
-                  isDone: task.isDone,
+                  id: widget.task.id,
+                  title: titleController.text.isNotEmpty ? titleController.text : widget.task.title,
+                  taskContent: contentController.text.isNotEmpty ? contentController.text : widget.task.taskContent,
+                  startDate: dateController.text.isNotEmpty ? dateController.text : widget.task.startDate,
+                  endDate: widget.task.endDate,
+                  repeat: repeatController.text.isNotEmpty ? repeatController.text : widget.task.repeat,
+                  place: placeController.text.isNotEmpty ? placeController.text : widget.task.place,
+                  isDone: widget.task.isDone,
                 );
                 context.read<TaskCubit>().updateTask(updatedTask);
               },
@@ -74,7 +88,7 @@ class EditTaskScreen extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              context.read<TaskCubit>().deleteTask(task.id!);
+              context.read<TaskCubit>().deleteTask(widget.task.id!);
             },
             icon: const Icon(Icons.delete, color: Colors.white),
           ),
@@ -201,7 +215,7 @@ class EditTaskScreen extends StatelessWidget {
                             configurations:  quill.QuillEditorConfigurations(
                               padding: EdgeInsetsDirectional.only(start: deviceinfo.screenWidth * 0.03, end: deviceinfo.screenWidth * 0.03, top: deviceinfo.screenHeight * 0.02 , bottom: deviceinfo.screenHeight * 0.02),
                               showCursor: true,
-                              placeholder: 'Enter your content here...', 
+                              placeholder: 'Enter your content here...',
                               customStyles: quill.DefaultStyles(
 
                                 placeHolder: quill.DefaultTextBlockStyle(
