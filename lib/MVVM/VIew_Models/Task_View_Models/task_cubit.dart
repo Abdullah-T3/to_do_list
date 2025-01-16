@@ -89,37 +89,6 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
-  Future<void> updateTask(TaskModel task) async {
-    print("------------------- Updating Task -------------------");
-    emit(TaskLoading());
-    try {
-      if (task.id == null) {
-        throw Exception("Task ID cannot be null");
-      }
-      final response = await _supabase
-          .from('tasks')
-          .update({
-            "task_content": task.taskContent,
-            "is_done": task.isDone,
-            "user_id": Supabase.instance.client.auth.currentUser?.id,
-            "start_date": task.startDate,
-            "end_date": task.endDate,
-            "reminder": task.reminder,
-            "repeat": task.repeat,
-            "title": task.title,
-            "place": task.place,
-          })
-          .eq('id', task.id!)
-          .select();
-      if (response == null || response.isEmpty) {
-      } else {
-        await fetchTasks();
-        emit(TaskUpdated());
-      }
-    } catch (e) {
-      emit(TaskError('Exception while updating task: $e'));
-    }
-  }
 
   void changeDate(String date) {
     emit(pickedDateTask(date));
