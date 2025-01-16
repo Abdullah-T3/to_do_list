@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list_zagsystem/MVVM/VIew_Models/Task_View_Models/edit_task/edit_task_cubit.dart';
 import 'package:to_do_list_zagsystem/MVVM/Views/Screens/splash/Splash_Screen.dart';
 import '../MVVM/Models/Tasks_Models/task_model.dart';
+import '../MVVM/VIew_Models/Task_View_Models/edit_task/edit_task_cubit.dart';
 import '../MVVM/VIew_Models/Task_View_Models/home_tasks/home_tasks_cubit.dart';
 import '../MVVM/Views/Screens/Add_Task/Add_Task_Screen.dart';
 import '../MVVM/Views/Screens/Edit_task/Edit_task_Screen.dart';
@@ -49,7 +50,7 @@ class AppRouts {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
           builder: (_) => BlocProvider(
-            create: (context) => TaskCubit(),
+            create: (context) => EditTaskCubit(),
             child: EditTaskScreen(
               task: settings.arguments as TaskModel,
             ),

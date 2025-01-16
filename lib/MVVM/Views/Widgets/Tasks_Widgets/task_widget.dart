@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_list_zagsystem/MVVM/VIew_Models/Task_View_Models/edit_task/edit_task_cubit.dart';
 import 'package:to_do_list_zagsystem/helpers/extantions.dart';
 import 'package:to_do_list_zagsystem/routing/routs.dart';
 import '../../../../Responsive/UiComponanets/InfoWidget.dart';
@@ -16,6 +17,7 @@ class TaskCard extends StatelessWidget {
     return Infowidget(builder: (context, deviceinfo) {
       return InkWell(
         onTap: () {
+          EditTaskCubit.taskID = task.id.toString();
           context.pushNamed(Routes.editTaskScreen, arguments: task);
         },
         child: Card(
