@@ -47,30 +47,12 @@ class AppRouts {
         );
       case Routes.editTaskScreen:
         return MaterialPageRoute(
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
           builder: (_) => BlocProvider(
             create: (context) => EditTaskCubit(),
             child: EditTaskScreen(
               task: settings.arguments as TaskModel,
             ),
-=======
-=======
->>>>>>> Stashed changes
-          builder: (_) => MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => EditTaskCubit(),
-              ),
-              BlocProvider(
-                create: (context) => TaskCubit(),
-              ),
-            ],
-            child: EditTaskScreen(task: settings.arguments as TaskModel),
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
           ),
         );
       case Routes.splashScreen:
