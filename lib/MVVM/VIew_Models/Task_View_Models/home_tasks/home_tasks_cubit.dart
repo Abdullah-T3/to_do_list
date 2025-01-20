@@ -24,4 +24,25 @@ class HomeTasksCubit extends Cubit<HomeTasksState> {
       emit(HomeTasksError(error: e.toString()));
     }
   }
+  Future <void> getSharedTasks() async {
+    emit(HomeTasksLoading());
+    try {
+
+      var userId = Supabase.instance.client.auth.currentUser?.id;
+      final response_shared= await _supabase.from('shared_task').select('task_id').eq('user_id', '$userId');
+      if (response_shared == []) {
+        emit(NoTasks());
+      }
+      final tasks = (response_shared as List<dynamic>).map((item) => TaskModel.fromJson(item)).toList();
+      final respons = await _supabase.from('tasks').select('title ,id, created_at , is_done').eq('id', tasks[0].id!);
+      if (respons == []) {
+        emit(NoTasks());
+      }
+      final tasks_shared = (respons as List<dynamic>).map((item) => TaskModel.fromJson(item)).toList();
+      print(tasks_shared[0].createdAt);
+      emit(HomeTasksLoaded(tasks: tasks_shared));
+    } catch (e ) {
+      emit(HomeTasksError(error: e.toString()));
+    }
+}
 }

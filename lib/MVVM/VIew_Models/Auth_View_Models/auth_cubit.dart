@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:to_do_list_zagsystem/MVVM/Models/Auth_Models/AuthModel.dart';
 
 part 'auth_state.dart';
 
@@ -58,7 +57,6 @@ class AuthCubit extends Cubit<AuthState> {
   // Fake signup method
   Future<void> signup() async {
 
-    emit(AuthFailure(''));
     emit(AuthLoading());
     if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty && DisplayNameController.text.isNotEmpty&& RewritePassController.text.isNotEmpty){
   if(passwordController.text == RewritePassController.text){
