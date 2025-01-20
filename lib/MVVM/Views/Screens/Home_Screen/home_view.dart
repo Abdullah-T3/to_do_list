@@ -17,12 +17,22 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List<bool> _isSelected = [true, false]; // Toggle state for "My Tasks" and "Shared Tasks"
+  final List<bool> _isSelected = [
+    true,
+    false
+  ]; // Toggle state for "My Tasks" and "Shared Tasks"
+  final TextEditingController _searchController = TextEditingController(); // Declare and initialize the search controller
 
   @override
   void initState() {
     super.initState();
     context.read<HomeTasksCubit>().getTasks();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose(); // Dispose the controller when the widget is removed
+    super.dispose();
   }
 
   @override
@@ -50,10 +60,7 @@ class _HomeViewState extends State<HomeView> {
                     children: [
                       const Text(
                         "on.time",
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                       const Spacer(),
                       IconButton(
@@ -79,31 +86,13 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   SizedBox(height: deviceinfo.screenHeight * 0.05),
                   TextField(
+                    controller: _searchController, // Assign the search controller
                     cursorColor: Colors.white,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(
-                            deviceinfo.screenWidth * 0.05),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(
-                            deviceinfo.screenWidth * 0.05),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(
-                            deviceinfo.screenWidth * 0.05),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.search),
-                        onPressed: () {},
-                      ),
-                      hintStyle: const TextStyle(color: Colors.white),
-                      hintText: "Search",
-                    ),
+                    style: TextStyles.searchBar(deviceinfo),
+                    decoration: TextFieldStyles.searchBar(deviceinfo: deviceinfo).copyWith(hintText: "Search"), // Use the search bar decoration
+                    onChanged: (query) {
+                      context.read<HomeTasksCubit>().searchTasks(query); // Call search method in Cubit
+                    },
                   ),
                   // Custom Toggle Button
                   Container(
@@ -111,7 +100,8 @@ class _HomeViewState extends State<HomeView> {
                     decoration: BoxDecoration(
                       color: ColorsManager.buttonColor.withOpacity(0.2),
                       borderRadius: BorderRadiusDirectional.all(
-                        Radius.circular(deviceinfo.screenWidth * 0.05),)
+                        Radius.circular(deviceinfo.screenWidth * 0.05),
+                      ),
                     ),
                     child: ToggleButtons(
                       isSelected: _isSelected,
@@ -148,8 +138,7 @@ class _HomeViewState extends State<HomeView> {
                         print("$state lol");
                         if (state is HomeTasksLoading) {
                           print("loading");
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator());
                         } else if (state is NoTasks) {
                           print("no tasks");
                           return const Center(
@@ -158,8 +147,7 @@ class _HomeViewState extends State<HomeView> {
                               style: TextStyle(color: Colors.white),
                             ),
                           );
-                        }
-                        else if (state is HomeTasksLoaded) {
+                        } else if (state is HomeTasksLoaded) {
                           print("loaded");
                           return RefreshIndicator(
                             onRefresh: () async {
@@ -170,8 +158,7 @@ class _HomeViewState extends State<HomeView> {
                               }
                             },
                             child: ListView.builder(
-                              padding: EdgeInsetsDirectional.only(
-                                  top: deviceinfo.screenHeight * 0.01),
+                              padding: EdgeInsetsDirectional.only(top: deviceinfo.screenHeight * 0.01),
                               itemCount: state.tasks.length,
                               itemBuilder: (context, index) {
                                 return TaskCard(task: state.tasks[index]);

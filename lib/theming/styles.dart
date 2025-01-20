@@ -3,6 +3,10 @@ import '../Responsive/models/DeviceInfo.dart';
 import 'colors.dart';
 
 class TextStyles {
+  static TextStyle searchBar(Deviceinfo deviceinfo) {
+    return TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.04);
+  }
+
   static const title = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.w900,
@@ -37,6 +41,22 @@ class TextFieldStyles {
       filled: true,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.03),
+      ),
+    );
+  }
+
+  static InputDecoration searchBar({required Deviceinfo deviceinfo}) {
+    return InputDecoration(
+      contentPadding: EdgeInsetsDirectional.only(start: deviceinfo.screenWidth * 0.03, end: deviceinfo.screenWidth * 0.03),
+      hintStyle: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.037),
+      fillColor: ColorsManager.buttonColor.withOpacity(0.2),
+      filled: true,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.03),
+      ),
+      suffixIcon: IconButton(
+        icon: const Icon(Icons.search),
+        onPressed: () {},
       ),
     );
   }
