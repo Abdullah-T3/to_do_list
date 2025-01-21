@@ -18,6 +18,7 @@ class HomeTasksCubit extends Cubit<HomeTasksState> {
   List<TaskModel> _allTasks = [];
   List<TaskModel> _filteredTasks = [];
   StreamSubscription? _sharedTasksSubscription;
+  StreamSubscription? _tasksSubscription;
   Future<void> getTasks() async {
     emit(HomeTasksLoading());
     try {
@@ -83,6 +84,12 @@ class HomeTasksCubit extends Cubit<HomeTasksState> {
   void _subscribeToRealtimeSharedTasks() {
     var userId = _supabase.auth.currentUser?.id;
 
+    _tasksSubscription = _supabase.from('tasks').stream(primaryKey: [
+      'id'
+    ]).listen((event) {
+      print('Realtime event in task: $event');
+      getSharedTasks();
+    });
     _sharedTasksSubscription = _supabase.from('tasks').stream(primaryKey: [
       'id'
     ]).listen((event) {
