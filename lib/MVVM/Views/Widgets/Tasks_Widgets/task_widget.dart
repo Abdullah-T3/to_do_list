@@ -33,6 +33,6 @@ class TaskCard extends StatelessWidget {
           ),
         ),
       );
-    });
+    },);
   }
 }
