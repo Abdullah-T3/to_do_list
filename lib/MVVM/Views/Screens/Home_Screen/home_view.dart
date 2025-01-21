@@ -20,8 +20,8 @@ class _HomeViewState extends State<HomeView> {
   final List<bool> _isSelected = [
     true,
     false
-  ]; // Toggle state for "My Tasks" and "Shared Tasks"
-  final TextEditingController _searchController = TextEditingController(); // Declare and initialize the search controller
+  ];
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void dispose() {
-    _searchController.dispose(); // Dispose the controller when the widget is removed
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -111,11 +111,11 @@ class _HomeViewState extends State<HomeView> {
                             _isSelected[i] = i == index;
                           }
                         });
-                        // Fetch tasks based on the selected toggle
                         if (index == 0) {
                           context.read<HomeTasksCubit>().getTasks();
                         } else {
                           context.read<HomeTasksCubit>().getSharedTasks();
+
                         }
                       },
                       borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
@@ -135,12 +135,10 @@ class _HomeViewState extends State<HomeView> {
                   Expanded(
                     child: BlocBuilder<HomeTasksCubit, HomeTasksState>(
                       builder: (context, state) {
-                        print("$state lol");
+                        print(state);
                         if (state is HomeTasksLoading) {
-                          print("loading");
                           return const Center(child: CircularProgressIndicator());
                         } else if (state is NoTasks) {
-                          print("no tasks");
                           return const Center(
                             child: Text(
                               "No tasks yet",
@@ -148,7 +146,6 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           );
                         } else if (state is HomeTasksLoaded) {
-                          print("loaded");
                           return RefreshIndicator(
                             onRefresh: () async {
                               if (_isSelected[0]) {
@@ -163,17 +160,6 @@ class _HomeViewState extends State<HomeView> {
                               itemBuilder: (context, index) {
                                 return TaskCard(task: state.tasks[index]);
                               },
-                            ),
-                          );
-                        } else if (state is HomeTasksError) {
-                          print("error");
-                          return Center(child: Text(state.error));
-                        } else if (state is NoTaske) {
-                          print("no tasks");
-                          return const Center(
-                            child: Text(
-                              "No tasks yet",
-                              style: TextStyle(color: Colors.white),
                             ),
                           );
                         }

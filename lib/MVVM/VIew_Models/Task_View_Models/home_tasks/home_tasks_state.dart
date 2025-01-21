@@ -18,4 +18,7 @@ final class HomeTasksError extends HomeTasksState {
 final class NoTasks extends HomeTasksState {}
 
 final class TaskDeleted extends HomeTasksState {}
-
+final class SharedTaskloaded extends HomeTasksState {
+  final List<TaskModel> tasks;
+  SharedTaskloaded({required this.tasks});
+}
