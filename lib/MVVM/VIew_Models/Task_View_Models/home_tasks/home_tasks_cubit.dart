@@ -90,7 +90,7 @@ class HomeTasksCubit extends Cubit<HomeTasksState> {
       print('Realtime event in task: $event');
       getSharedTasks();
     });
-    _sharedTasksSubscription = _supabase.from('tasks').stream(primaryKey: [
+    _sharedTasksSubscription = _supabase.from('shared_task').stream(primaryKey: [
       'id'
     ]).listen((event) {
       print('Realtime event in shared_task: $event');
