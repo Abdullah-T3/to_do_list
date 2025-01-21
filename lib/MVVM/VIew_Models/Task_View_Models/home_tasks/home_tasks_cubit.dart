@@ -9,9 +9,7 @@ import '../../../Models/Tasks_Models/task_model.dart';
 part 'home_tasks_state.dart';
 
 class HomeTasksCubit extends Cubit<HomeTasksState> {
-  HomeTasksCubit() : super(HomeTasksInitial()) {
-    _subscribeToRealtimeSharedTasks();
-  }
+  HomeTasksCubit() : super(HomeTasksInitial()) {}
 
   final _supabase = Supabase.instance.client;
 
@@ -19,6 +17,7 @@ class HomeTasksCubit extends Cubit<HomeTasksState> {
   List<TaskModel> _filteredTasks = [];
   StreamSubscription? _sharedTasksSubscription;
   StreamSubscription? _tasksSubscription;
+
   Future<void> getTasks() async {
     emit(HomeTasksLoading());
     try {
@@ -81,7 +80,7 @@ class HomeTasksCubit extends Cubit<HomeTasksState> {
     emit(SharedTaskloaded(tasks: _filteredTasks));
   }
 
-  void _subscribeToRealtimeSharedTasks() {
+  void subscribeToRealtimeSharedTasks() {
     var userId = _supabase.auth.currentUser?.id;
 
     _tasksSubscription = _supabase.from('tasks').stream(primaryKey: [
