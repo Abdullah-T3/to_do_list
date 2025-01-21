@@ -115,7 +115,6 @@ class _HomeViewState extends State<HomeView> {
                           context.read<HomeTasksCubit>().getTasks();
                         } else {
                           context.read<HomeTasksCubit>().getSharedTasks();
-
                         }
                       },
                       borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
@@ -146,6 +145,23 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           );
                         } else if (state is HomeTasksLoaded) {
+                          return RefreshIndicator(
+                            onRefresh: () async {
+                              if (_isSelected[0]) {
+                                context.read<HomeTasksCubit>().getTasks();
+                              } else {
+                                context.read<HomeTasksCubit>().getSharedTasks();
+                              }
+                            },
+                            child: ListView.builder(
+                              padding: EdgeInsetsDirectional.only(top: deviceinfo.screenHeight * 0.01),
+                              itemCount: state.tasks.length,
+                              itemBuilder: (context, index) {
+                                return TaskCard(task: state.tasks[index]);
+                              },
+                            ),
+                          );
+                        } else if (state is SharedTaskloaded) {
                           return RefreshIndicator(
                             onRefresh: () async {
                               if (_isSelected[0]) {
