@@ -55,8 +55,13 @@ class EditTaskCubit extends Cubit<EditTaskState> {
 
       // **************** nitializing the Controller of Quill to display the Content of the Task
 
-      controller = QuillController(document: Document.fromJson(jsonDecode(contentController as String)), selection: const TextSelection.collapsed(offset: 0));
-
+      if(contentController.isNotEmpty){
+        controller = QuillController(document: Document.fromJson(
+            jsonDecode(contentController as String)),
+            selection: const TextSelection.collapsed(offset: 0));
+      }else{
+        controller = QuillController.basic();
+      }
       // Listener on the Changes of the Controller
       controller.document.changes.listen((event) {
         // print(event.before);

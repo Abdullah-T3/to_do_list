@@ -268,6 +268,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
         );
         }else if (state is EditTaskLoading) {
           return const Scaffold(
+            backgroundColor: ColorsManager.EdittextFieldColor,
               body: Center(
             child: CircularProgressIndicator(),
           ));
