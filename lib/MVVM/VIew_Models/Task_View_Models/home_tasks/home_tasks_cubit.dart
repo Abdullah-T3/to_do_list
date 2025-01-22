@@ -9,7 +9,9 @@ import '../../../Models/Tasks_Models/task_model.dart';
 part 'home_tasks_state.dart';
 
 class HomeTasksCubit extends Cubit<HomeTasksState> {
-  HomeTasksCubit() : super(HomeTasksInitial()) {}
+  HomeTasksCubit() : super(HomeTasksInitial()) {
+
+  }
 
   final _supabase = Supabase.instance.client;
 
