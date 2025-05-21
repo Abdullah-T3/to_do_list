@@ -34,7 +34,6 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Infowidget(builder: (context, deviceinfo) {
@@ -82,7 +81,8 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
               ),
             ),
           ],
-          iconTheme: IconThemeData(color: Colors.grey, size: deviceinfo.screenWidth * 0.07),
+          iconTheme: IconThemeData(
+              color: Colors.grey, size: deviceinfo.screenWidth * 0.07),
         ),
         body: SafeArea(
           top: false,
@@ -153,12 +153,19 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                                 'Monthly'
                               ],
                               deviceinfo: deviceinfo,
-                              initialIndex: ['One Time', 'Daily', 'Weekly', 'Monthly']
-                                  .indexOf(selectedRepeatOption),
+                              initialIndex: [
+                                'One Time',
+                                'Daily',
+                                'Weekly',
+                                'Monthly'
+                              ].indexOf(selectedRepeatOption),
                               onSelected: (int index) {
-                                context.read<TaskCubit>().changeRepeat(
-                                    ['One Time', 'Daily', 'Weekly', 'Monthly']
-                                    [index]);
+                                context.read<TaskCubit>().changeRepeat([
+                                      'One Time',
+                                      'Daily',
+                                      'Weekly',
+                                      'Monthly'
+                                    ][index]);
                               },
                             );
                           },
@@ -167,7 +174,8 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                     ),
                     InkWellWidget(
                       OptionName: 'Reminder',
-                      InitialData: 'Before $selectedReminderOption_index Minutes',
+                      InitialData:
+                          'Before $selectedReminderOption_index Minutes',
                       OnTap: () async {
                         await showDialog(
                           context: context,
@@ -184,8 +192,9 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                               initialIndex: [5, 10, 15, 20]
                                   .indexOf(selectedReminderOption_index),
                               onSelected: (int index) {
-                                context.read<TaskCubit>().changeReminder(
-                                    [5, 10, 15, 20][index]);
+                                context
+                                    .read<TaskCubit>()
+                                    .changeReminder([5, 10, 15, 20][index]);
                               },
                             );
                           },

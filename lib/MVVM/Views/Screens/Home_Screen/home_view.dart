@@ -20,9 +20,9 @@ class _HomeViewState extends State<HomeView> {
   final TextEditingController _searchController = TextEditingController();
 
   @override
-  void initState() {
+  void initState() async {
     super.initState();
-    context.read<HomeTasksCubit>().getTasks();
+    await context.read<HomeTasksCubit>().getTasks();
   }
 
   @override
@@ -69,7 +69,8 @@ class _HomeViewState extends State<HomeView> {
       return RefreshIndicator(
         onRefresh: _refreshTasks,
         child: ListView.builder(
-          padding: EdgeInsetsDirectional.only(top: deviceinfo.screenHeight * 0.01),
+          padding:
+              EdgeInsetsDirectional.only(top: deviceinfo.screenHeight * 0.01),
           itemCount: tasks.length,
           itemBuilder: (context, index) {
             return TaskCard(task: tasks[index]);
@@ -105,7 +106,10 @@ class _HomeViewState extends State<HomeView> {
                       children: [
                         const Text(
                           "on.time",
-                          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                         const Spacer(),
                         IconButton(
@@ -134,7 +138,9 @@ class _HomeViewState extends State<HomeView> {
                       controller: _searchController,
                       cursorColor: Colors.white,
                       style: TextStyles.searchBar(deviceinfo),
-                      decoration: TextFieldStyles.searchBar(deviceinfo: deviceinfo).copyWith(hintText: "Search"),
+                      decoration:
+                          TextFieldStyles.searchBar(deviceinfo: deviceinfo)
+                              .copyWith(hintText: "Search"),
                       onChanged: (query) {
                         context.read<HomeTasksCubit>().searchTasks(query);
                       },
@@ -142,7 +148,8 @@ class _HomeViewState extends State<HomeView> {
 
                     // Toggle Buttons
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: deviceinfo.screenHeight * 0.02),
+                      margin: EdgeInsets.symmetric(
+                          vertical: deviceinfo.screenHeight * 0.02),
                       decoration: BoxDecoration(
                         color: ColorsManager.buttonColor.withOpacity(0.2),
                         borderRadius: BorderRadiusDirectional.all(
@@ -152,7 +159,8 @@ class _HomeViewState extends State<HomeView> {
                       child: ToggleButtons(
                         isSelected: _isSelected,
                         onPressed: _toggleTaskView,
-                        borderRadius: BorderRadius.circular(deviceinfo.screenWidth * 0.05),
+                        borderRadius: BorderRadius.circular(
+                            deviceinfo.screenWidth * 0.05),
                         selectedColor: Colors.white,
                         fillColor: ColorsManager.buttonColor,
                         color: Colors.white.withOpacity(0.6),
@@ -170,7 +178,8 @@ class _HomeViewState extends State<HomeView> {
                     // Task List
                     Expanded(
                       child: BlocBuilder<HomeTasksCubit, HomeTasksState>(
-                        builder: (context, state) => _buildTaskList(state, deviceinfo),
+                        builder: (context, state) =>
+                            _buildTaskList(state, deviceinfo),
                       ),
                     ),
                   ],
@@ -191,5 +200,3 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
-
-

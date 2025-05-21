@@ -1,8 +1,8 @@
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:to_do_list_zagsystem/MVVM/Models/Tasks_Models/task_model.dart';
 import 'package:to_do_list_zagsystem/MVVM/VIew_Models/Task_View_Models/edit_task/edit_task_cubit.dart';
@@ -13,13 +13,8 @@ import '../../../../Responsive/models/DeviceInfo.dart';
 import '../../../../theming/colors.dart';
 import '../../../../theming/styles.dart';
 
-import 'package:flutter_quill/flutter_quill.dart' as quill;
-
-
 class EditTaskScreen extends StatefulWidget {
-  EditTaskScreen({super.key, required this.task}) {
-
-  }
+  EditTaskScreen({super.key, required this.task}) {}
 
   final TaskModel task;
 
@@ -28,27 +23,17 @@ class EditTaskScreen extends StatefulWidget {
 }
 
 class _EditTaskScreenState extends State<EditTaskScreen> {
-
-
   @override
   void initState() {
     super.initState();
 
     context.read<EditTaskCubit>().fetchTask();
-
-
   }
-
 
   @override
   Widget build(BuildContext context) {
-
-
-
-
-
     return BlocConsumer<EditTaskCubit, EditTaskState>(
-      listener: (context, state) {
+        listener: (context, state) {
       if (state is TaskUpdated) {
         context.pop();
       }
@@ -56,22 +41,25 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
       //   context.pop();
       // }
       if (state is EditTaskFailure) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
-
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(state.error)));
       }
-    },
-    builder: (context, state) {
-        if(state is EditTaskLoaded) {
+    }, builder: (context, state) {
+      if (state is EditTaskLoaded) {
         return Scaffold(
           appBar: AppBar(
             actions: [
               IconButton(
                 onPressed: () {
-
                   final updatedTask = TaskModel(
                     id: int.parse(EditTaskCubit.taskID),
                     title: context.read<EditTaskCubit>().titleController.text,
-                    taskContent: jsonEncode(context.read<EditTaskCubit>().controller.document.toDelta().toJson() as List),
+                    taskContent: jsonEncode(context
+                        .read<EditTaskCubit>()
+                        .controller
+                        .document
+                        .toDelta()
+                        .toJson() as List),
                     startDate:
                         context.read<EditTaskCubit>().startDateController.text,
                     endDate:
@@ -86,7 +74,6 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                 },
                 icon: const Icon(Icons.check, color: Colors.white),
               ),
-
               IconButton(
                 onPressed: () {
                   // context.read<EditTaskCubit>().deleteTask(widget.task.id!);
@@ -179,10 +166,10 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                             //   },
                             // ),
 
-                            quill.QuillToolbar.simple(
-                                controller: context.read<EditTaskCubit>().controller,
-                                configurations:
-                                    quill.QuillSimpleToolbarConfigurations(
+                            quill.QuillSimpleToolbar(
+                                controller:
+                                    context.read<EditTaskCubit>().controller,
+                                config: quill.QuillSimpleToolbarConfig(
                                   toolbarSize: deviceinfo.screenWidth * 0.115,
                                   showFontSize: true,
                                   showDividers: false,
@@ -219,8 +206,9 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
 
                             Expanded(
                               child: quill.QuillEditor.basic(
-                                controller: context.read<EditTaskCubit>().controller,
-                                configurations: quill.QuillEditorConfigurations(
+                                controller:
+                                    context.read<EditTaskCubit>().controller,
+                                config: quill.QuillEditorConfig(
                                     padding: EdgeInsetsDirectional.only(
                                         start: deviceinfo.screenWidth * 0.03,
                                         end: deviceinfo.screenWidth * 0.03,
@@ -262,25 +250,22 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
         );
       } else if (state is EditTaskFailure) {
         return Scaffold(
-          body: Center(
-            child: Text(state.error, style: TextStyle(color: Colors.red)),
-          )
-        );
-        }else if (state is EditTaskLoading) {
-          return const Scaffold(
+            body: Center(
+          child: Text(state.error, style: TextStyle(color: Colors.red)),
+        ));
+      } else if (state is EditTaskLoading) {
+        return const Scaffold(
             backgroundColor: ColorsManager.EdittextFieldColor,
-              body: Center(
-            child: CircularProgressIndicator(),
-          ));
-        }else{
-          return Container();
-        }
-    }
-    );
-
-
+            body: Center(
+              child: CircularProgressIndicator(),
+            ));
+      } else {
+        return Container();
+      }
+    });
   }
 }
+
 Future<DateTime?> DatePicker(BuildContext context) {
   return showDatePicker(
     context: context,
@@ -303,12 +288,19 @@ Future<DateTime?> DatePicker(BuildContext context) {
   );
 }
 
-radioButtons({required BuildContext context, required Deviceinfo deviceinfo, required List<String> ItemsList, required String title}) async {
+radioButtons(
+    {required BuildContext context,
+    required Deviceinfo deviceinfo,
+    required List<String> ItemsList,
+    required String title}) async {
   return await showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(title, style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.05)),
+          title: Text(title,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: deviceinfo.screenWidth * 0.05)),
           backgroundColor: Colors.grey.shade900,
           scrollable: false,
           content: SizedBox(
@@ -326,10 +318,14 @@ radioButtons({required BuildContext context, required Deviceinfo deviceinfo, req
                       itemCount: ItemsList.length,
                       itemBuilder: (context, index) {
                         return RadioListTile<int>(
-                          title: Text(ItemsList[index], style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.03)),
+                          title: Text(ItemsList[index],
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: deviceinfo.screenWidth * 0.03)),
                           value: index,
                           groupValue: 0,
-                          fillColor: WidgetStateProperty.all(ColorsManager.buttonColor),
+                          fillColor: WidgetStateProperty.all(
+                              ColorsManager.buttonColor),
                           onChanged: (int? value) {
                             print(value);
                           },
@@ -337,11 +333,15 @@ radioButtons({required BuildContext context, required Deviceinfo deviceinfo, req
                       }),
                 ),
                 ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: ColorsManager.buttonColor),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorsManager.buttonColor),
                     onPressed: () {
                       context.pop();
                     },
-                    child: Text('Done', style: TextStyle(color: Colors.white, fontSize: deviceinfo.screenWidth * 0.03)))
+                    child: Text('Done',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: deviceinfo.screenWidth * 0.03)))
               ],
             ),
           ),

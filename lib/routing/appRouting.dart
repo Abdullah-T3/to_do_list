@@ -47,7 +47,6 @@ class AppRouts {
         );
       case Routes.editTaskScreen:
         return MaterialPageRoute(
-
           builder: (_) => BlocProvider(
             create: (context) => EditTaskCubit(),
             child: EditTaskScreen(

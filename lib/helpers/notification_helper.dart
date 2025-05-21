@@ -1,20 +1,20 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/timezone.dart' as tz;
+
 class NotificationHelper {
   static final FlutterLocalNotificationsPlugin _notificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
   static Future<void> initialize() async {
-
     const AndroidInitializationSettings androidInitializationSettings =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
     const InitializationSettings initializationSettings =
-    InitializationSettings(android: androidInitializationSettings);
+        InitializationSettings(android: androidInitializationSettings);
 
     await _notificationsPlugin.initialize(initializationSettings);
-
   }
+
   static Future<void> scheduleNotification({
     required int id,
     required String title,
@@ -23,7 +23,8 @@ class NotificationHelper {
     RepeatInterval? repeatInterval,
   }) async {
     try {
-      final tz.TZDateTime tzScheduledTime = tz.TZDateTime.from(scheduledTime, tz.local);
+      final tz.TZDateTime tzScheduledTime =
+          tz.TZDateTime.from(scheduledTime, tz.local);
 
       if (tzScheduledTime.isBefore(tz.TZDateTime.now(tz.local))) {
         throw ArgumentError('Scheduled time must be in the future');
@@ -44,16 +45,14 @@ class NotificationHelper {
           ),
         ),
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        matchDateTimeComponents: repeatInterval != null ? DateTimeComponents.time : null,
-        uiLocalNotificationDateInterpretation:
-        UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents:
+            repeatInterval != null ? DateTimeComponents.time : null,
       );
       print('Notification scheduled for $scheduledTime');
     } catch (e) {
       print('Error scheduling notification: $e');
     }
   }
-
 
   static Future<void> requestNotificationPermission() async {
     final status = await Permission.notification.request();
@@ -62,7 +61,8 @@ class NotificationHelper {
     } else {
       print("Notification permission denied.");
       if (status.isPermanentlyDenied) {
-        print("Notification permission permanently denied. Redirecting to settings...");
+        print(
+            "Notification permission permanently denied. Redirecting to settings...");
         openAppSettings();
       }
     }
