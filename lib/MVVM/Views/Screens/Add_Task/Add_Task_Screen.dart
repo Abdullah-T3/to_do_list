@@ -4,7 +4,13 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import '../../../../theming/styles.dart';
 import '../../../Models/Tasks_Models/task_model.dart';
-import '../../../VIew_Models/Task_View_Models/task_cubit.dart';
+import '../../../VIew_Models/Task_View_Models/home/home_cubit.dart'
+    show
+        HomeCubit,
+        HomeState,
+        TaskUpdated,
+        pickedReminderTask,
+        pickedRepeatTask;
 import '../../Widgets/Add_Task_Widgets/InkWellWidget.dart';
 import '../../../../Responsive/UiComponanets/InfoWidget.dart';
 import '../../../../helpers/extantions.dart';
@@ -43,7 +49,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           actions: [
-            BlocListener<TaskCubit, TaskState>(
+            BlocListener<HomeCubit, HomeState>(
               listener: (context, state) {
                 if (state is TaskUpdated) {
                   context.pop();
@@ -67,7 +73,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                     taskContent: notesController.text,
                   );
 
-                  context.read<TaskCubit>().addTask(task);
+                  context.read<HomeCubit>().addTask(task);
 
                   await NotificationHelper.scheduleNotification(
                     id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
@@ -94,7 +100,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                 top: deviceinfo.screenHeight * 0.12,
                 start: deviceinfo.screenWidth * 0.05,
                 end: deviceinfo.screenWidth * 0.05),
-            child: BlocBuilder<TaskCubit, TaskState>(
+            child: BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,7 +126,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                         final DateTime? picked = await DatePicker(context);
                         if (picked != null) {
                           startDate = picked;
-                          context.read<TaskCubit>().changeDate(
+                          context.read<HomeCubit>().changeDate(
                               "${picked.year}-${picked.month}-${picked.day}");
                         }
                       },
@@ -132,7 +138,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                         final DateTime? picked = await DatePicker(context);
                         if (picked != null) {
                           endDate = picked;
-                          context.read<TaskCubit>().changeDate(
+                          context.read<HomeCubit>().changeDate(
                               "${picked.year}-${picked.month}-${picked.day}");
                         }
                       },
@@ -160,7 +166,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                                 'Monthly'
                               ].indexOf(selectedRepeatOption),
                               onSelected: (int index) {
-                                context.read<TaskCubit>().changeRepeat([
+                                context.read<HomeCubit>().changeRepeat([
                                       'One Time',
                                       'Daily',
                                       'Weekly',
@@ -193,7 +199,7 @@ class _Add_Task_ScreenState extends State<Add_Task_Screen> {
                                   .indexOf(selectedReminderOption_index),
                               onSelected: (int index) {
                                 context
-                                    .read<TaskCubit>()
+                                    .read<HomeCubit>()
                                     .changeReminder([5, 10, 15, 20][index]);
                               },
                             );

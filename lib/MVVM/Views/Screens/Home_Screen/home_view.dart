@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../Responsive/UiComponanets/InfoWidget.dart';
 import '../../../../helpers/extantions.dart';
 import '../../../../theming/colors.dart';
 import '../../../../routing/routs.dart';
 import '../../../../theming/styles.dart';
-import '../../../VIew_Models/Task_View_Models/home_tasks/home_tasks_cubit.dart';
+import '../../../VIew_Models/Task_View_Models/home/home_cubit.dart';
 import '../../Widgets/Tasks_Widgets/task_widget.dart';
 
 class HomeView extends StatefulWidget {
@@ -20,9 +21,9 @@ class _HomeViewState extends State<HomeView> {
   final TextEditingController _searchController = TextEditingController();
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-    await context.read<HomeTasksCubit>().getTasks();
+    context.read<HomeCubit>().getTasks();
   }
 
   @override
@@ -39,22 +40,97 @@ class _HomeViewState extends State<HomeView> {
     });
 
     if (_isSelected[0]) {
-      context.read<HomeTasksCubit>().getTasks();
+      context.read<HomeCubit>().getTasks();
     } else {
-      context.read<HomeTasksCubit>().subscribeToRealtimeSharedTasks();
-      context.read<HomeTasksCubit>().getSharedTasks();
+      context.read<HomeCubit>().subscribeToRealtimeSharedTasks();
+      context.read<HomeCubit>().getSharedTasks();
     }
   }
 
   Future<void> _refreshTasks() async {
     if (_isSelected[0]) {
-      context.read<HomeTasksCubit>().getTasks();
+      context.read<HomeCubit>().getTasks();
     } else {
-      context.read<HomeTasksCubit>().getSharedTasks();
+      context.read<HomeCubit>().getSharedTasks();
     }
   }
 
-  Widget _buildTaskList(HomeTasksState state, deviceinfo) {
+  void _showFriendList(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Infowidget(
+          builder: (context, deviceInfo) {
+            return Container(
+              decoration: BoxDecoration(
+                color: ColorsManager.primaryColor,
+                borderRadius: BorderRadius.all(
+                    Radius.circular(deviceInfo.screenWidth * 0.03)),
+              ),
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Text(
+                    "Friends",
+                    style: TextStyle(
+                      fontSize: deviceInfo.screenWidth * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        final friendName = "Abdullah";
+                        final friendInitial = friendName.isNotEmpty
+                            ? friendName[0].toUpperCase()
+                            : "U";
+                        return Container(
+                          margin: EdgeInsets.only(
+                              bottom: deviceInfo.screenWidth * 0.04),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: ColorsManager.buttonColor, width: 0.4),
+                            borderRadius: BorderRadius.circular(
+                              deviceInfo.screenWidth * 0.05,
+                            ),
+                          ),
+                          child: ListTile(
+                            trailing: Checkbox(
+                              value: false,
+                              onChanged: (value) {
+                                setState(() {
+                                  value = value!;
+                                });
+                              },
+                            ),
+                            leading: CircleAvatar(
+                              backgroundColor: Theme.of(
+                                context,
+                              ).primaryColor.withOpacity(0.1),
+                              child: Text(friendInitial),
+                            ),
+                            title: Text(
+                              friendName,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onTap: () {},
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildTaskList(HomeState state, deviceinfo) {
     if (state is HomeTasksLoading) {
       return const Center(child: CircularProgressIndicator());
     } else if (state is NoTasks) {
@@ -87,11 +163,6 @@ class _HomeViewState extends State<HomeView> {
       builder: (context, deviceinfo) {
         return Scaffold(
           extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-          ),
           body: SafeArea(
             top: false,
             child: Container(
@@ -113,7 +184,9 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         const Spacer(),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            print("notification");
+                          },
                           icon: const Icon(
                             Icons.notification_add,
                             color: Colors.white,
@@ -142,7 +215,7 @@ class _HomeViewState extends State<HomeView> {
                           TextFieldStyles.searchBar(deviceinfo: deviceinfo)
                               .copyWith(hintText: "Search"),
                       onChanged: (query) {
-                        context.read<HomeTasksCubit>().searchTasks(query);
+                        context.read<HomeCubit>().searchTasks(query);
                       },
                     ),
 
@@ -177,7 +250,7 @@ class _HomeViewState extends State<HomeView> {
 
                     // Task List
                     Expanded(
-                      child: BlocBuilder<HomeTasksCubit, HomeTasksState>(
+                      child: BlocBuilder<HomeCubit, HomeState>(
                         builder: (context, state) =>
                             _buildTaskList(state, deviceinfo),
                       ),
@@ -187,13 +260,25 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              context.pushNamed(Routes.addTaskScreen);
-            },
-            shape: const CircleBorder(),
-            backgroundColor: ColorsManager.buttonColor,
-            child: const Icon(Icons.add),
+          floatingActionButton: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                onPressed: () {
+                  context.pushNamed(Routes.addTaskScreen);
+                },
+                shape: const CircleBorder(),
+                backgroundColor: ColorsManager.buttonColor,
+                child: const Icon(Icons.add),
+              ),
+              const SizedBox(height: 16),
+              FloatingActionButton(
+                onPressed: () => _showFriendList(context),
+                shape: const CircleBorder(),
+                backgroundColor: ColorsManager.buttonColor,
+                child: const Icon(Icons.people),
+              ),
+            ],
           ),
         );
       },

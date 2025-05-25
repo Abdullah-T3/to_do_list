@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
-import 'package:flutter_quill/quill_delta.dart';
 import 'package:to_do_list_zagsystem/MVVM/Models/Tasks_Models/task_model.dart';
 import 'package:to_do_list_zagsystem/MVVM/VIew_Models/Task_View_Models/edit_task/edit_task_cubit.dart';
 import 'package:to_do_list_zagsystem/Responsive/UiComponanets/InfoWidget.dart';
@@ -165,7 +164,6 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                             //     }
                             //   },
                             // ),
-
                             quill.QuillSimpleToolbar(
                                 controller:
                                     context.read<EditTaskCubit>().controller,
@@ -203,7 +201,6 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                             //     controller: contentController,
                             //   ),
                             // ),
-
                             Expanded(
                               child: quill.QuillEditor.basic(
                                 controller:
