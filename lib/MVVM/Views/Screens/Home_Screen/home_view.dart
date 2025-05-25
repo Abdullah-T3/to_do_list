@@ -264,6 +264,7 @@ class _HomeViewState extends State<HomeView> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               FloatingActionButton(
+                heroTag: "addTask",
                 onPressed: () {
                   context.pushNamed(Routes.addTaskScreen);
                 },
